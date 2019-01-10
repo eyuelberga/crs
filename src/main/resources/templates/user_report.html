@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'News')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragment">
+</header>
+<main class="amber lighten-3">
+     <div id="file_report" class="  container row">
+      <form class="col s12" method="post" name="news_form" >
+         <div class="row">
+        <h4>Police Report Form</h4>
+        <p>If you have witnessed an incident that files under police atribution, 
+        please use this online police report form to signalize it. The police will review
+      and take the appropriate action. Thank you for being a responsible citizen.</p></div>
+       <div class="row">
+         <h6 class="indigo-text">Incident Type</h6>
+        <label>
+          <div class="input-field col s12">
+        <input type="checkbox" />
+        <span>Collison</span>
+      </div>
+      </label>
+      </div>
+     
+      <div class="row">
+          <h6 class="indigo-text">When did the incident happen?</h6>
+        <div class="input-field col s12">
+         <input type="text" class="datepicker">
+          <label for="content">Date when you witnessed the incident *</label>
+        </div>
+      </div>
+      <div class="row">
+         <h6 class="indigo-text">Location of the incident</h6>
+         <div class="input-field col s12 l6">
+          <input id="Address" type="text" class="validate">
+          <label for="Address">Street Address</label>
+        </div>
+
+        <div class="input-field col s12 l6">
+    <select>
+      <option value="" disabled selected>Choose your option</option>
+      <option value="1">Addis Ababa</option>
+      <option value="2">Jimma</option>
+      <option value="3">Adama</option>
+    </select>
+    <label>City</label>
+  </div></div>
+  <div class="row">
+    <h6 class="indigo-text">Information about the incident</h6>
+     <div class="input-field col s12">
+          <textarea id="content" class="materialize-textarea"></textarea>
+          <label for="content">Please describe the incident</label>
+        </div>
+         <div class="input-field col s12 ">
+          <input id="Address" type="number" class="validate">
+          <label for="Address">How many people were involved</label>
+        </div>
+        <div class="input-field col s12 ">
+          <p>Were you in any way affected by the incident?</p>
+              <p>
+      <label>
+        <input name="group1" class="with-gap" type="radio"  />
+        <span>Yes</span>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input name="group1" class="with-gap" type="radio" checked/>
+        <span>No</span>
+      </label>
+    </p>
+        </div>
+  </div>
+   <div class="row">
+        <div class="input-field col s4 "></div>
+         <div class="input-field col s4 ">
+        <button type='submit' name='btn_crime_post' class='col s12 btn btn-large waves-green waves-effect purple darken-1'>File Report</button></div>
+        <div class="input-field col s4 "></div>
+      </div>
+     
+    </form>
+      </div>
+     </main>
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>
