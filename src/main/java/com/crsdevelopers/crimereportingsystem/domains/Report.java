@@ -46,7 +46,7 @@ public class Report {
 	
 	@NotBlank(message="Description can't be empty")
 	@NotNull
-	@Size(min=5,  max =5000, message="Description must be at least 5 characters long")
+	@Size(max = 5000)
 	private String description;
 	
 	private Integer peopleInvolved;
