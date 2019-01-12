@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.crsdevelopers.crimereportingsystem.domains.Report;
 import com.crsdevelopers.crimereportingsystem.domains.City;
 import com.crsdevelopers.crimereportingsystem.domains.CrimeType;
-import com.crsdevelopers.crimereportingsystem.domains.News;
 import com.crsdevelopers.crimereportingsystem.domains.CrimeType.Type;
 import com.crsdevelopers.crimereportingsystem.services.CityService;
 import com.crsdevelopers.crimereportingsystem.services.CrimeTypeService;

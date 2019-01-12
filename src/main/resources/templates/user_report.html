@@ -32,7 +32,7 @@ xmlns:th="http://www.thymeleaf.org">
          <div class="row">
           <div class="input-field col s12 l4">
         <label>
-      <div th:each="crime : ${abuse}">
+      <div  th:each="crime : ${abuse}">
         <input name="crime" type="checkbox" th:value="${crime.id}" />
         <span th:text="${crime.name}">Name</span><br/>
       </div>
@@ -89,8 +89,8 @@ xmlns:th="http://www.thymeleaf.org">
      
       <div class="row">
           <h6 class="indigo-text">When did the incident happen?</h6>
-        <div th:field="*{date}" class="input-field col s12">
-         <input type="text" class="datepicker">
+        <div  class="input-field col s12">
+         <input th:field="*{date}" type="text" class="datepicker">
           <label for="content">Date when you witnessed the incident </label>
             <span
 					class="helper-text red-text" th:if="${#fields.hasErrors('date')}"
@@ -110,12 +110,14 @@ xmlns:th="http://www.thymeleaf.org">
         </div>
 
         <div class="input-field col s12 l6">
-    <select>
-      <option value="" disabled selected>Choose your option</option>
-      <div th:each="city: ${cities}">
-      <option th:value="${city.id}" th:text="${city.name}">Addis Ababa</option>
+    <select th:field="*{city}">
+      <option value="" disabled selected>Choose the City</option> 
+      <option th:each="city: ${cities}"
+      th:value="${city.id}" 
+      th:text="${city.name}">
+      city name</option>
       
-      </div>
+
     </select>
     <label>City</label>
   </div></div>
@@ -141,13 +143,13 @@ xmlns:th="http://www.thymeleaf.org">
           <p>Were you in any way affected by the incident?</p>
               <p>
       <label>
-        <input  name="group1" class="with-gap" type="radio"  />
+        <input th:field="*{isAffected}" th:value= "true" name="group1" class="with-gap" type="radio"  />
         <span>Yes</span>
       </label>
     </p>
     <p>
       <label>
-        <input name="group1" class="with-gap" type="radio" checked/>
+        <input th:field="*{isAffected}" th:value= "false" name="group1" class="with-gap" type="radio" checked/>
         <span>No</span>
       </label>
     </p>

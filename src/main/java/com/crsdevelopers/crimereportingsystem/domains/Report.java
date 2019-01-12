@@ -28,8 +28,8 @@ public class Report {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToMany
-	@Size(min=1, message="You must choose at least 1 incident type")
+	@ManyToMany(targetEntity=CrimeType.class)
+	//@Size(min=1, message="You must choose at least 1 incident type")
 	private Set<CrimeType> crimeType = new HashSet<>();
 	
 	@NotBlank(message="Date can't be empty")

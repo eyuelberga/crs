@@ -1,6 +1,5 @@
 package com.crsdevelopers.crimereportingsystem.services;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,6 @@ public class CityService {
 
 	public List<City> getAll() {
 		 List<City> all = (List<City>) repository.findAll();
-		 Collections.reverse(all);
 		return all;
 	}
 
