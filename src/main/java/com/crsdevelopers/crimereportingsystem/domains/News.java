@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 
 import lombok.Data;
 
+
 @Data
 @Entity
 @Table(name="news",schema="crs")

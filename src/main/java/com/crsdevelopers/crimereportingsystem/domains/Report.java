@@ -30,7 +30,11 @@ public class Report {
 	
 	@ManyToMany
 	@Size(min=1, message="You must choose at least 1 incident type")
-	private Set<CrimeType> ingredients = new HashSet<>();
+	private Set<CrimeType> crimeType = new HashSet<>();
+	
+	@NotBlank(message="Date can't be empty")
+	@NotNull
+	private String date;
 	
 	@NotBlank(message="Address can't be empty")
 	@NotNull
@@ -45,10 +49,8 @@ public class Report {
 	@Size(min=5,  max =5000, message="Description must be at least 5 characters long")
 	private String description;
 	
-	@NotBlank(message="People involved can't be empty")
 	private Integer peopleInvolved;
 	
-	@NotBlank(message="Is affected can't be empty")
 	private  Boolean isAffected;
 	
 	private Date createdAt = new Date();
