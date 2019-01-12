@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headFragment (pageTitle)">
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css"   th:href="@{/vendor/materialize/css/materialize.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title th:text="${pageTitle}">Template Title</title>
+  <style type="text/css">
+  body{
+    display:flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  main{
+    flex: 1 0 auto;
+  }
+
+   ul li:hover{
+    background-color: #ffca28;
+  }
+
+  .tabs .tab a{
+    color:purple;
+  }
+   .tabs .tab a:active{
+    color:black;
+  }
+
+    .tabs .tab a:focus.active{
+      background-color: #90a4ae;
+      opacity: 0.5;
+      color: black;
+    }
+
+    .tabs .indicator{
+       background-color: #4a148c;
+    }
+    .tabs .tab a:hover{
+      background-color: #90a4ae;
+      opacity: 0.5;
+      color: black;
+    }
+
+
+  /* label color */
+   .input-field label {
+     color: #424242;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: blue;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #4a148c;
+     box-shadow: 0 1px 0 0 #000;
+   }
+   /* valid color */
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid #4a148c;
+     box-shadow: 0 1px 0 0 #000;
+   }
+   /* invalid color */
+   .input-field input[type=text].invalid {
+     border-bottom: 1px solid red;
+     box-shadow: 0 1px 0 0 #000;
+   }
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: blue;
+   }
+  </style>
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:fragment="headerFragment" class=" grey darken-4 ">
+  <div class="navbar-fixed">
+  <nav class="nav-wrapper grey darken-4 ">
+  <div class="container">
+    <a href="" class="brand-logo amber-text text-lighten-2">CrimeReport</a>
+    <a class="sidenav-trigger" data-target="mobile-menu" href="#">
+      <span class="fa fa-navicon"></span>
+    </a>
+    <ul class="right hide-on-med-and-down">
+      <li><a  href="#">REPORT A CRIME</a></li>
+      <li><a href="#">NEWS</a></li>
+      <li><a href="#">LOGIN</a></li>
+    </ul>
+   
+  </div>
+
+  </nav>
+</div>
+<ul class="sidenav grey darken-4" id="mobile-menu">
+      <li><a class="white-text" href="#">REPORT A CRIME</a></li>
+      <li><a class="white-text" href="#">NEWS</a></li>
+      <li><a class="white-text" href="#">LOGIN</a></li>
+    </ul>
+</header>
+
+
+<!-- admin header fragment -->
+
+
+<header th:fragment="headerFragmentAdmin" class=" grey darken-4 ">
+  <div class="navbar-fixed">
+  <nav class="nav-wrapper grey darken-4 ">
+  <div class="container">
+    <a href="" class="brand-logo amber-text text-lighten-2">Admin</a>
+    <a class="sidenav-trigger" data-target="mobile-menu" href="#">
+      <span class="fa fa-navicon"></span>
+    </a>
+    <ul class="right hide-on-med-and-down">
+      <li><a  th:href="@{/admin/news}">NEWS</a></li>
+      <li><a th:href="@{/admin/reportedCrimes}">REPORTED CRIMES</a></li>
+      <li><a th:href="@{/admin/wantedPerson}">WANTED PERSON</a></li>
+      <li><a th:href="@{/admin/stolenVehicle}">STOLEN VEHICLE</a></li>
+      <li><a th:href="@{/admin/missingPerson}">MISSING PERSON</a></li>
+      <li><a th:href="@{/admin/logout}">LOGOUT</a></li>
+    </ul>
+   
+  </div>
+
+  </nav>
+</div>    
+      <ul  class="sidenav grey darken-4" id="mobile-menu">
+      <li><a class="white-text" th:href="@{/admin/news}">NEWS</a></li>
+      <li><a class="white-text" th:href="@{/admin/reportedCrimes}">REPORTED CRIMES</a></li>
+      <li><a class="white-text" th:href="@{/admin/wantedPerson}">WANTED PERSON</a></li>
+      <li><a class="white-text" th:href="@{/admin/stolenVehicle}">STOLEN VEHICLE</a></li>
+      <li><a class="white-text" th:href="@{/admin/missingPerson}">MISSING PERSON</a></li>
+      <li><a class="white-text" th:href="@{/admin/logout}">LOGOUT</a></li>
+    </ul>
+    
+</header>
+
+
+    <!-- Modal Structure -->
+  <div th:fragment="deleteModalFragment" id="delete_modal" class="modal">
+    <div class="modal-content center">
+      <h4 class="red-text"><i class="fa fa-warning "></i> Warning</h4>
+      <h6 class="black-text" >The Process can't be reversed! Are you sure you want to delete?</h6>
+    </div>
+    <div class="modal-footer">
+      <a  id="delete_modal_button" href = "" class='btn waves-green waves-effect red darken-1'>Delete</a>
+       <a class=' modal-close btn waves-green waves-effect grey'>Close</a>
+    </div>
+  </div>
+  
+
+
+    <footer th:fragment="footerFragment" class="page-footer grey darken-4">
+        <div class="container">
+            <div class="row">
+                <div class="col l12 s12">
+                    <p class="grey-text text-lighten-1">A project developed for Web Programming I course at AAiT (Addis Ababa Institute of Technology), instructed by Mr. Betsegaw Lemma</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2019 MIT License
+                <a class="grey-text text-lighten-1 right" href="#!">developed by CRS developers</a>
+            </div>
+        </div>
+    </footer>
+
+<div th:fragment="scriptFragment">
+<script type="text/javascript" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/vendor/materialize/js/materialize.min.js}"></script>
+<script type="text/javascript">
+
+
+  $(document).ready(function(){
+  $('.sidenav').sidenav();
+  $('.dropdown-trigger').dropdown();
+  $('.carousel').carousel({
+    indicators: true,
+    duration: 1
+  });
+  $('.tabs').tabs();
+  $('.modal').modal();
+  $('.datepicker').datepicker();
+  $('select').formSelect();
+  
+  /* smooth transition between tabs*/
+  $('#new_post_tab').click(function(){
+	    $('#post_news').fadeIn("slow");
+	    $('.prev-news-card').fadeOut("slow");
+	  });
+
+	    $('#prev_post_tab').click(function(){
+	      $('#post_news').fadeOut("slow");
+	      $('.prev-news-card').fadeIn("slow");
+	    });
+  
+});
+  
+  function showDeleteModal(id){
+	  var delete_btn = document.getElementById("delete_modal_button");
+	  delete_btn.setAttribute("href","/admin/news/deleteNews?id="+id+"")
+	}
+  
+  function showDeleteModalSv(id){
+	  var delete_btn = document.getElementById("delete_modal_button");
+	  delete_btn.setAttribute("href","/admin/stolenVehicle/deleteSv?id="+id+"")
+	}
+  
+</script>
+</div>
+</body>
+</html>

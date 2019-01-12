@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'News')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragment">
+</header>
+<main class="amber lighten-3">
+    <section class=" section row left-align container">
+        <div class="row">
+    <div id="file_report" class="  container row">
+      <form class="col s12" method="post" name="news_form" th:action="@{/user/report}" th:object="${report}">
+         <div class="row">
+        <h4>Police Report Form</h4>
+        <p>If you have witnessed an incident that files under police atribution, 
+        please use this online police report form to signalize it. The police will review
+      and take the appropriate action. Thank you for being a responsible citizen.</p></div>
+        <div class="row">
+        <div class="row" th:if="${#fields.hasErrors()}">
+				<span class="red-text"> Validation Error! Please correct your input and resubmit. </span>
+			</div>
+         <h6 class="indigo-text">Incident Type</h6>
+         
+         <div
+					class="helper-text red-text" th:if="${#fields.hasErrors('crimeType')}"
+					th:errors="*{crimeType}">{title error}
+			</div>
+       </div>
+              
+         <div class="row">
+          <div class="input-field col s12 l4">
+        <label>
+      <div  th:each="crime : ${abuse}">
+        <input name="crime" type="checkbox" th:value="${crime.id}" />
+        <span th:text="${crime.name}">Name</span><br/>
+      </div>
+      </label>
+      </div>
+      
+           <div class="input-field col s12 l4">
+        <label>
+      <div th:each="crime : ${arson}">
+        <input name="crime" type="checkbox" th:value="${crime.id}" />
+        <span th:text="${crime.name}">Name</span><br/>
+      </div>
+      </label>
+      </div>
+      
+           <div class="input-field col s12 l4">
+        <label>
+      <div th:each="crime : ${burglary}">
+        <input name="crime" type="checkbox" th:value="${crime.id}" />
+        <span th:text="${crime.name}">Name</span><br/>
+      </div>
+      </label>
+      </div>
+    </div>
+    <div class="row">
+          <div class="input-field col s12 l4">
+        <label>
+      <div th:each="crime : ${fraud}">
+        <input name="crime" type="checkbox" th:value="${crime.id}" />
+        <span th:text="${crime.name}">Name</span><br/>
+      </div>
+      </label>
+      </div>
+       
+         <div class="input-field col s12 l4">
+        <label>
+      <div th:each="crime : ${harasment}">
+        <input name="crime" type="checkbox" th:value="${crime.id}" />
+        <span th:text="${crime.name}">Name</span><br/>
+      </div>
+      </label>
+      </div>
+          <div class="input-field col s12 l4">
+        <label>
+      <div th:each="crime : ${murder}">
+        <input name="crime" type="checkbox" th:value="${crime.id}" />
+        <span th:text="${crime.name}">Name</span><br/>
+      </div>
+      </label>
+      </div>
+      <br><br><br>
+    </div>
+
+     
+      <div class="row">
+          <h6 class="indigo-text">When did the incident happen?</h6>
+        <div  class="input-field col s12">
+         <input th:field="*{date}" type="text" class="datepicker">
+          <label for="content">Date when you witnessed the incident </label>
+            <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('date')}"
+					th:errors="*{date}">{title error}
+			</span>
+        </div>
+      </div>
+      <div class="row">
+         <h6 class="indigo-text">Location of the incident</h6>
+         <div class="input-field col s12 l6">
+          <input th:field="*{address}" id="Address" type="text" class="validate">
+          <label for="Address">Street Address</label>
+            <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('address')}"
+					th:errors="*{address}">{title error}
+			</span>
+        </div>
+
+        <div class="input-field col s12 l6">
+    <select th:field="*{city}">
+      <option value="" disabled selected>Choose the City</option> 
+      <option th:each="city: ${cities}"
+      th:value="${city.id}" 
+      th:text="${city.name}">
+      city name</option>
+      
+
+    </select>
+    <label>City</label>
+  </div></div>
+  <div class="row">
+    <h6 class="indigo-text">Information about the incident</h6>
+     <div class="input-field col s12">
+          <textarea th:field="*{description}" id="content" class="materialize-textarea"></textarea>
+          <label for="content">Please describe the incident</label>
+            <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('description')}"
+					th:errors="*{description}">{title error}
+			</span>
+        </div>
+         <div class="input-field col s12 ">
+          <input th:field="*{peopleInvolved}" id="Address" type="number" class="validate">
+          <label for="Address">How many people were involved</label>
+           <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('peopleInvolved')}"
+					th:errors="*{peopleInvolved}">{title error}
+			</span>
+        </div>
+        <div class="input-field col s12 ">
+          <p>Were you in any way affected by the incident?</p>
+              <p>
+      <label>
+        <input th:field="*{isAffected}" th:value= "true" name="group1" class="with-gap" type="radio"  />
+        <span>Yes</span>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input th:field="*{isAffected}" th:value= "false" name="group1" class="with-gap" type="radio" checked/>
+        <span>No</span>
+      </label>
+    </p>
+        </div>
+  </div>
+
+      <div class="row">
+        <div class="input-field col s4 "></div>
+         <div class="input-field col s4 ">
+        <button type='submit' name='btn_crime_post' class='col s12 btn btn-large waves-green waves-effect purple darken-1'>File Report</button></div>
+        <div class="input-field col s4 "></div>
+      </div>
+     
+    </form>
+  </div>
+     </main>
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>

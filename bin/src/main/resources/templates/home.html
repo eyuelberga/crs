@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'Welcome to CRC')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragment">
+</header>
+<div class="amber lighten-2">
+<section id="banner" class=" center container section">
+        <h2>Welcome to the Crime Report Center</h2>
+     <button class="red  accent-4 btn-large waves-effect pulse">Report a Crime</button>
+     <p class="flow-text">The Crime Report Center allows you to report crimes to the police
+     much faster than the conventional phone system.</p>
+    </section></div>
+    <section class="row center-align container">
+        <br><br>
+        <h4>Features</h4>
+        <div class="col s12 m6 l4">
+            <h1 class="fa fa-5x fa-pencil"></h1>
+            <h5>Easy Reporting</h5>
+            <p>You can report crimes in your location easly. All you need to do is fill a simple form and we will respond to you as soon as possible.</p>
+        </div>
+        <div class="col s12 m6 l4">
+            <h1 class=" fa fa-5x fa-flash"></h1>
+            <h5>Fast Response</h5>
+            <p>Because you send us all the information we need in a well organized way, we can also respond to your enquires fast.</p>
+        </div>
+        <div class="col s12 m6 l4">
+             <h1 class="fa fa-5x fa-newspaper-o"></h1>
+            <h5>Get Informed</h5>
+            <p>Through the News section, you can get informations concerning the police department. We also post missing person reports, stolen vehicle reports and other information that you can, as a citizen contribute to.</p>
+        </div>
+    </section>
+
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+
+<div th:replace="fragments/layout :: scriptFragment"></div>
+
+</body>
+</html>

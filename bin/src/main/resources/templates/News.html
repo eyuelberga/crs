@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'Welcome to CRC')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragment">
+</header>
+<div class="amber lighten-2">
+<section id="banner" class=" center container section">
+       <div  class="row " th:each = "news : ${all_news}">
+    <div  class="col s12 l12 prev-news-card">
+       <div class="card  white lighten-3 ">
+        <div class="card-content black-text">
+          <span   class="card-title" th:text = "${news.title}" >{News Title}
+          </span>
+          <p th:text = "${news.content}" >{news content}</p>
+            <span class="new badge light-green darken-2" data-badge-caption="" th:text = "${#dates.format(news.createdAt,'dd-MM-yyyy HH:mm')}" >{Date Created}</span>
+        </div>
+         <div class="card-action right-align">
+          
+        </div>
+      </div>
+    </div>
+  </div> 
+    </section></div>
+    <section class="row center-align container">
+        <br><br>
+        <div class="col s12 m6 l4">
+            
+        </div>
+        <div class="col s12 m6 l4">
+            
+        </div>
+        <div class="col s12 m6 l4">
+             
+           
+        </div>
+    </section>
+
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+
+<div th:replace="fragments/layout :: scriptFragment"></div>
+
+</body>
+</html>

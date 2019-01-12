@@ -13,7 +13,7 @@ import com.crsdevelopers.crimereportingsystem.domains.News;
 import com.crsdevelopers.crimereportingsystem.services.NewsService;
 
 @Controller
-@RequestMapping("/News")
+@RequestMapping("news")
 public class NewsController {
 	
 	
@@ -31,7 +31,7 @@ public class NewsController {
 @GetMapping
 	
 	public String showLoginSignupForm(Model model) {
-		return "News";
+		return "news";
 	}
 	
 }

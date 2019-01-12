@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'News')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragmentAdmin">
+</header>
+<main class="amber lighten-3">
+    <section class=" section row left-align container">
+        <div class="row">
+    <div  class="col s12">
+      <ul class="tabs amber lighten-3">
+        <li class="tab col s6"><a id = "new_post_tab"  class=" black-text waves-effect waves-green active" href="#post_news">New Post</a></li>
+        <li class="tab col s6"><a id = "prev_post_tab"  class=" black-text waves-effect waves-green" href="#news_list">Previous Posts</a></li>
+      </ul>
+    </div>
+    <div id="post_news" class="  container row">
+      <form method="POST" class="col s12" th:action="@{/admin/news}" th:object="${news}"  name="news_form" >
+        <h4>Add a News Post</h4>
+        	<div class="row" th:if="${#fields.hasErrors()}">
+				<span class="red-text"> Validation Error! Please correct your input and resubmit. </span>
+			</div>
+       <div class="row">
+        <div class="input-field col s12">
+          <input id="title" type="text" th:field="*{title}" class="validate">
+          <label for="title">Title</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('title')}"
+					th:errors="*{title}">{title error}
+			</span>
+        </div>
+      </div>
+     
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="content" th:field="*{content}" class="materialize-textarea"></textarea>
+          <label for="content">Content</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('content')}"
+					th:errors="*{content}">{content error}
+			</span>
+        </div>
+      </div>
+      <div class="row">
+        <button type='submit' name='btn_news_post' class='col s12 btn btn-large waves-green waves-effect purple darken-1'>Post</button>
+      </div>
+     
+    </form>
+  </div>
+
+ <div id="news_list" class=" container row ">
+       
+       <div class="row prev-news-card">
+        <div class="col s12">
+          <h4>Previous Posts</h4>
+        </div>
+      </div>
+      <div  class="row " th:each = "news : ${all_news}">
+    <div  class="col s12 l12 prev-news-card">
+       <div class="card  purple lighten-3 ">
+        <div class="card-content black-text">
+          <span   class="card-title" th:text = "${news.title}" >{News Title}
+          </span>
+          <p th:text = "${news.content}" >{news content}</p>
+            <span class="new badge light-green darken-2" data-badge-caption="" th:text = "${#dates.format(news.createdAt,'dd-MM-yyyy HH:mm')}" >{Date Created}</span>
+        </div>
+         <div class="card-action right-align">
+          <a  th:href = "@{/admin/news/edit/{id} (id=${news.id}) }" class="btn-floating waves-effect waves-light amber accent-4"><i class="fa fa-edit fa-2x"></i></a>
+          <button  data-target="delete_modal"  th:onclick="'showDeleteModal(\''+${news.id} + '\')'"  class="btn-floating waves-effect modal-trigger waves-light red darken-1"><i class="fa fa-trash-o fa-2x"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+     
+  </div>
+
+</div>
+        
+    </section>
+     </main>
+     
+     <div th:replace="fragments/layout :: deleteModalFragment">
+    </div>
+
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>

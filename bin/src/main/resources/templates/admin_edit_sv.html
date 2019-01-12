@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'sv')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragmentAdmin">
+</header>
+<main class="amber lighten-3">
+    <div id="post_sv" class="  container row">
+      <form method="POST" class="col s12" action="#" th:action="@{/admin/stolenVehicle/update/{id} (id=${sv.id}) }" th:object="${sv}"   >
+        <h4>Edit sv Post</h4>
+        	<div class="row" th:if="${#fields.hasErrors()}">
+				<span class="red-text"> Validation Error! Please correct your input and resubmit. </span>
+			</div>
+			
+		      <div class="row">
+        <div class="input-field col s12">
+          <input id="title" type="text" th:value="${sv.id}" th:field="*{id}" class="validate" disabled>
+          <label for="title">ID</label>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="input-field col l6 s12">
+          <input id="name" type="text" th:value="${sv.name}" th:field="*{name}" class="validate">
+          <label for="name">Name</label>
+          <span
+          class="helper-text red-text" th:if="${#fields.hasErrors('name')}"
+          th:errors="*{name}">{title error}
+      </span>
+        </div>
+         <div class="input-field col l6 s12">
+          <input id="licensePlate" type="text" th:value="${sv.licensePlate}" th:field="*{licensePlate}" class="validate">
+          <label for="licensePlate">License Plate</label>
+          <span
+          class="helper-text red-text" th:if="${#fields.hasErrors('licensePlate')}"
+          th:errors="*{licensePlate}">{LicensePlate error}
+      </span>
+        </div>
+      </div>
+
+       <div class="row">
+        <div class="input-field col l6 s12">
+          <input id="color" type="text" th:value="${sv.color}" th:field="*{color}" class="validate">
+          <label for="color">Color</label>
+          <span
+          class="helper-text red-text" th:if="${#fields.hasErrors('color')}"
+          th:errors="*{color}">{title error}
+      </span>
+        </div>
+         <div class="input-field col l6 s12">
+          <input id="model" type="text" th:value="${sv.model}" th:field="*{model}" class="validate">
+          <label for="model">Model</label>
+          <span
+          class="helper-text red-text" th:if="${#fields.hasErrors('model')}"
+          th:errors="*{model}">{LicensePlate error}
+      </span>
+        </div>
+      </div>
+   
+      <div class="row">
+        <button type='submit' name='btn_sv_post' class='col s12 btn btn-large waves-green waves-effect purple darken-1'>Update</button>
+      </div>
+     
+    </form>
+  </div>
+     </main>
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>
