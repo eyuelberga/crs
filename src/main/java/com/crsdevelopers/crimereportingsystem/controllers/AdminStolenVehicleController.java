@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
+
 
 import com.crsdevelopers.crimereportingsystem.domains.StolenVehicle;
 import com.crsdevelopers.crimereportingsystem.services.StolenVehicleService;
@@ -31,7 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("admin/stolenVehicle")
-@SessionAttributes("news")
 public class AdminStolenVehicleController {
 	
 	private StolenVehicleService svService;
@@ -69,13 +67,12 @@ public class AdminStolenVehicleController {
 	}
 	
 	@PostMapping
-	public String processSvPost(@ModelAttribute @Valid StolenVehicle sv, BindingResult errors,SessionStatus sessionStatus){
+	public String processSvPost(@ModelAttribute @Valid StolenVehicle sv, Errors errors){
 		if (errors.hasErrors()) {
 			return "admin_sv";
 		}
 		StolenVehicle savedSv = svService.save(sv);
 		log.info("Service object after persisting: " + savedSv);
-		sessionStatus.setComplete();
 		
 		return "redirect:/admin/stolenVehicle/#sv_list";
 		
@@ -89,13 +86,12 @@ public class AdminStolenVehicleController {
 		
 	}
 	@PostMapping("/update/{id}")
-	public String processUpdate(@PathVariable("id") Long id, @Valid StolenVehicle svEdit, Errors errors,SessionStatus sessionStatus) {
+	public String processUpdate(@PathVariable("id") Long id, @Valid StolenVehicle svEdit, Errors errors) {
 		if (errors.hasErrors()) {
 			svEdit.setId(id);
 			return "admin_edit_sv";
 		}
 		svService.update(svEdit);
-		sessionStatus.setComplete();
 		
 		return "redirect:/admin/stolenVehicle/#sv_list";
 		
