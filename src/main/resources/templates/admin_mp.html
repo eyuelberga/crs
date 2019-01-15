@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'missing person')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragmentAdmin">
+</header>
+<main class="amber lighten-3">
+    <section class=" section row left-align container">
+        <div class="row">
+    <div  class="col s12">
+      <ul class="tabs amber lighten-3">
+        <li class="tab col s6"><a id = "new_post_tab"  class=" black-text waves-effect waves-green active" href="#post_mp">New Post</a></li>
+        <li class="tab col s6"><a id = "prev_post_tab"  class=" black-text waves-effect waves-green" href="#mp_list">Previous Posts</a></li>
+      </ul>
+    </div>
+    <div id="post_mp" class="  container row">
+      <form method="POST" class="col s12" th:action="@{/admin/missing-person}" th:object="${mp}"  name="mp_form" >
+        <h4>File missing person report</h4>
+        	<div class="row" th:if="${#fields.hasErrors()}">
+				<span class="red-text"> Validation Error! Please correct your input and resubmit. </span>
+			</div>
+       <div class="row">
+        <div class="input-field col l6 s12">
+          <input id="name" type="text" th:field="*{name}" class="validate">
+          <label for="name">Name</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('name')}"
+					th:errors="*{name}">{name error}
+			</span>
+        </div>
+         <div class="input-field col l6 s12">
+          <input id="gender" type="text" th:field="*{gender}" class="validate">
+          <label for="gender">Gender</label>
+          <span
+          class="helper-text red-text" th:if="${#fields.hasErrors('gender')}"
+          th:errors="*{gender}">{Gender error}
+      </span>
+        </div>
+      </div>
+
+       <div class="row">
+        <div class="input-field col l6 s12">
+          <input id="age" type="text" th:field="*{age}" class="validate">
+          <label for="age">Age</label>
+          <span
+          class="helper-text red-text" th:if="${#fields.hasErrors('age')}"
+          th:errors="*{age}">{age error}
+      </span>
+        </div>
+         <div class="input-field col l6 s12">
+          <input id="description" type="text" th:field="*{description}" class="validate">
+          <label for="description">Description</label>
+          <span
+          class="helper-text red-text" th:if="${#fields.hasErrors('description')}"
+          th:errors="*{description}">{description error}
+      </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <button type='submit' name='btn_mp_post' class='col s12 btn btn-large waves-green waves-effect purple darken-1'>Post</button>
+      </div>
+     
+    </form>
+  </div>
+
+ <div id="mp_list" class=" container row ">
+       
+       <div class="row prev-mp-card">
+        <div class="col s12">
+          <h4>Previous Posts</h4>
+        </div>
+      </div>
+      <div  class="row " th:each = "mp : ${all_mp}">
+    <div  class="col s12 l12 prev-mp-card">
+       <div class="card  purple lighten-3 ">
+        <div class="card-content black-text">
+          <span   class="card-title" th:text = "${mp.name}" >{mp name}
+          </span>
+          <p th:text = "|Gender:${mp.gender}|" >{mp gender}</p>
+          <p th:text = "|Age:${mp.age}|" >{mp age}</p>
+          <p th:text = "|Description:${mp.description}|" >{mp description}</p>
+            <span class="new badge light-green darken-2" data-badge-caption="" th:text = "${#dates.format(mp.createdAt,'dd-MM-yyyy HH:mm')}" >{Date Created}</span>
+        </div>
+         <div class="card-action right-align">
+          <a  th:href = "@{/admin/missing-person/edit/{id} (id=${mp.id}) }" class="btn-floating waves-effect waves-light amber accent-4"><i class="fa fa-edit fa-2x"></i></a>
+          <button  data-target="delete_modal"  th:onclick="'showDeleteModalMp(\''+${mp.id} + '\')'"  class="btn-floating waves-effect modal-trigger waves-light red darken-1"><i class="fa fa-trash-o fa-2x"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+     
+  </div>
+
+</div>
+        
+    </section>
+     </main>
+     
+  <div th:replace="fragments/layout :: deleteModalFragment">
+    </div>
+
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>
