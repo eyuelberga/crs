@@ -215,6 +215,12 @@ xmlns:th="http://www.thymeleaf.org">
 	  delete_btn.setAttribute("href","/admin/wanted-person/deleteWp?id="+id+"")
 	}
 
+  function showDeleteModalMp(id){
+	  var delete_btn = document.getElementById("delete_modal_button");
+	  delete_btn.setAttribute("href","/admin/missing-person/deleteMp?id="+id+"")
+	}
+
+
   
 </script>
 </div>
