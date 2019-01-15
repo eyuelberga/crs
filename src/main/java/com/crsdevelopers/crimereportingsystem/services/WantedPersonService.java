@@ -28,6 +28,7 @@ public void delete(WantedPerson wp) {
 	repository.delete(wp);
 
 }
+//by id
 public WantedPerson getById(Long id) {
 	return repository.findById(id).get();
 }
