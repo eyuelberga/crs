@@ -86,8 +86,8 @@ xmlns:th="http://www.thymeleaf.org">
       <span class="fa fa-navicon"></span>
     </a>
     <ul class="right hide-on-med-and-down">
-      <li><a  href="#">REPORT A CRIME</a></li>
-      <li><a href="#">NEWS</a></li>
+      <li><a  th:href="@{/user/report}">REPORT A CRIME</a></li>
+      <li><a th:href="@{/news}">NEWS</a></li>
       <li><a href="#">LOGIN</a></li>
     </ul>
    
@@ -96,8 +96,8 @@ xmlns:th="http://www.thymeleaf.org">
   </nav>
 </div>
 <ul class="sidenav grey darken-4" id="mobile-menu">
-      <li><a class="white-text" href="#">REPORT A CRIME</a></li>
-      <li><a class="white-text" href="#">NEWS</a></li>
+      <li><a class="white-text" th:href="@{/user/report}">REPORT A CRIME</a></li>
+      <li><a class="white-text" th:href="@{/news}">NEWS</a></li>
       <li><a class="white-text" href="#">LOGIN</a></li>
     </ul>
 </header>
@@ -116,8 +116,8 @@ xmlns:th="http://www.thymeleaf.org">
     </a>
     <ul class="right hide-on-med-and-down">
       <li><a  th:href="@{/admin/news}">NEWS</a></li>
-      <li><a th:href="@{/admin/reportedCrimes}">REPORTED CRIMES</a></li>
-      <li><a th:href="@{/admin/wantedPerson}">WANTED PERSON</a></li>
+      <li><a th:href="@{/admin/reported/crime}">REPORTED CRIMES</a></li>
+      <li><a th:href="@{/wanted}">WANTED PERSON</a></li>
       <li><a th:href="@{/admin/stolenVehicle}">STOLEN VEHICLE</a></li>
       <li><a th:href="@{/admin/missingPerson}">MISSING PERSON</a></li>
       <li><a th:href="@{/admin/logout}">LOGOUT</a></li>
@@ -129,8 +129,8 @@ xmlns:th="http://www.thymeleaf.org">
 </div>    
       <ul  class="sidenav grey darken-4" id="mobile-menu">
       <li><a class="white-text" th:href="@{/admin/news}">NEWS</a></li>
-      <li><a class="white-text" th:href="@{/admin/reportedCrimes}">REPORTED CRIMES</a></li>
-      <li><a class="white-text" th:href="@{/admin/wantedPerson}">WANTED PERSON</a></li>
+      <li><a class="white-text" th:href="@{/admin/reported/crime}">REPORTED CRIMES</a></li>
+      <li><a class="white-text" th:href="@{/wanted}">WANTED PERSON</a></li>
       <li><a class="white-text" th:href="@{/admin/stolenVehicle}">STOLEN VEHICLE</a></li>
       <li><a class="white-text" th:href="@{/admin/missingPerson}">MISSING PERSON</a></li>
       <li><a class="white-text" th:href="@{/admin/logout}">LOGOUT</a></li>
