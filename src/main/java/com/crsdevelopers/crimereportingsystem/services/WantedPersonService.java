@@ -1,5 +1,6 @@
 package com.crsdevelopers.crimereportingsystem.services;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,6 @@ public class WantedPersonService {
 		 List<WantedPerson> all = (List<WantedPerson>) repository.findAll();
 		return all;
 	}
+
 
 }
