@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/layout :: headFragment (pageTitle = 'News')">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'Wanted Person')">
 </head>
 <body class="  amber lighten-1">
 <!-- navbar -->
@@ -17,10 +17,35 @@ xmlns:th="http://www.thymeleaf.org">
       </ul>
     </div>
     <div id="post_news" class="  container row">
-      <form method="POST" class="col s12" th:action="@{/admin/missing}" th:object="${missing}"  name="missing_form" >
-        <h4>Add wanted Post</h4>
-       Please select a file to upload : <input type="file" name="file" />
-    <input type="submit" value="upload" />
+      <form method="POST" class="col s12" th:action="@{/admin/news}" th:object="${news}"  name="news_form" >
+        <h4>Add a News Post</h4>
+        	<div class="row" th:if="${#fields.hasErrors()}">
+				<span class="red-text"> Validation Error! Please correct your input and resubmit. </span>
+			</div>
+       <div class="row">
+        <div class="input-field col s12">
+          <input id="title" type="text" th:field="*{title}" class="validate">
+          <label for="title">Title</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('title')}"
+					th:errors="*{title}">{title error}
+			</span>
+        </div>
+      </div>
+     
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="content" th:field="*{content}" class="materialize-textarea"></textarea>
+          <label for="content">Content</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('content')}"
+					th:errors="*{content}">{content error}
+			</span>
+        </div>
+      </div>
+      <div class="row">
+        <button type='submit' name='btn_news_post' class='col s12 btn btn-large waves-green waves-effect purple darken-1'>Post</button>
+      </div>
      
     </form>
   </div>
@@ -34,7 +59,7 @@ xmlns:th="http://www.thymeleaf.org">
       </div>
       <div  class="row " th:each = "news : ${all_news}">
     <div  class="col s12 l12 prev-news-card">
-       <div class="card  purple lighten-3 ">
+       <div class="card   blue-grey lighten-4 ">
         <div class="card-content black-text">
           <span   class="card-title" th:text = "${news.title}" >{News Title}
           </span>
