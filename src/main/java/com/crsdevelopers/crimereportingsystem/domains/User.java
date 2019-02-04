@@ -16,8 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -27,13 +27,21 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
 @Table(name="user",schema="crs")
 public class User implements UserDetails{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 228223283460503633L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -51,10 +59,10 @@ public class User implements UserDetails{
     @NotBlank(message="Street Address is required")
     private String streetAddress;
     
-    @OneToOne
+    @ManyToOne
 	@MapsId
 	private City city;
-    @Pattern(regexp="^[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{3}$", message="Must be formatted XXX-XXX-XXX-XXX")
+    //@Pattern(regexp="^[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{3}$", message="Must be formatted XXX-XXX-XXX-XXX")
     @NotBlank(message="Phone number is required")
     private String phoneNumber;
     

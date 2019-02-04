@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'Login')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragment">
+</header>
+	<main class="amber lighten-3">
+    <section class=" section row center-align container">
+        <div class="row">
+ 
+    <div id="login" class=" container row">
+      <form class="col s12" th:action="@{/login}" th:method="post" name="login_form" >
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        <h4>Login</h4>
+         <h4><span th:utext="${successMessage}"></span></h4>
+       <div class="row">
+        <div class="input-field col s12">
+          <input id="username" type="text" name="username"  th:placeholder="UserName" class="validate">
+          <label for="username">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" th:placeholder="Password" name="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="red-text" align="center" th:if="${param.error}">
+				<p>Username or Password invalid, please verify</p>
+			</div>
+      <div class="row">
+        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-green waves-effect deep-purple'>Login</button>
+      </div>
+     
+    </form>
+  </div>
+
+
+</div>
+        
+    </section>
+     </main>
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>

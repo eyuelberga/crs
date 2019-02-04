@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'Error')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragment">
+</header>
+<main class="amber lighten-2">
+<section id="banner" class=" center container section">
+        <h2>Access Denied</h2>
+     <p class="flow-text">You Must Login to Access This Resource</p>
+    </section></main>
+    
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+
+<div th:replace="fragments/layout :: scriptFragment"></div>
+
+</body>
+</html>

@@ -5,13 +5,14 @@ xmlns:th="http://www.thymeleaf.org">
 </head>
 <body class="  amber lighten-1">
 <!-- navbar -->
-<header th:replace="fragments/layout :: headerFragment">
+<header th:replace="fragments/layout :: headerFragmentUser">
 </header>
 <main class="amber lighten-3">
     <section class=" section row left-align container">
         <div class="row">
     <div id="file_report" class="  container row">
       <form class="col s12" method="post" name="news_form" th:action="@{/user/report}" th:object="${report}">
+         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
          <div class="row">
         <h4>Police Report Form</h4>
         <p>If you have witnessed an incident that files under police atribution, 
@@ -165,6 +166,7 @@ xmlns:th="http://www.thymeleaf.org">
      
     </form>
   </div>
+  </section>
      </main>
     <footer th:replace="fragments/layout :: footerFragment">
     </footer>

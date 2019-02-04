@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -40,7 +41,7 @@ public class Report {
 	@NotNull
 	private String address;
 	
-	@OneToOne
+	@ManyToOne
 	@MapsId
 	private City city;
 	
@@ -54,5 +55,8 @@ public class Report {
 	private  Boolean isAffected;
 	
 	private Date createdAt = new Date();
+	
+	@ManyToOne
+	private  User user;
 
 }

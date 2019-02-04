@@ -10,6 +10,7 @@ xmlns:th="http://www.thymeleaf.org">
 <main class="amber lighten-3">
     <div id="post_sv" class="  container row">
       <form method="POST" class="col s12" action="#" th:action="@{/admin/stolenVehicle/update/{id} (id=${sv.id}) }" th:object="${sv}"   >
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <h4>Edit sv Post</h4>
         	<div class="row" th:if="${#fields.hasErrors()}">
 				<span class="red-text"> Validation Error! Please correct your input and resubmit. </span>

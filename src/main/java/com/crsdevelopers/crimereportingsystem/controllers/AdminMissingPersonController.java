@@ -21,8 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("admin/missing-person")
-@SessionAttributes("mp")
+@RequestMapping("admin/missingPerson")
 public class AdminMissingPersonController {
 
 		private MissingPersonService mpService;
@@ -53,19 +52,18 @@ public class AdminMissingPersonController {
 			MissingPerson mp = new MissingPerson();
 			mp.setId(id);
 			mpService.delete(mp);
-			return "redirect:/admin/missing-person/#mp_list";
+			return "redirect:/admin/missingPerson/#mp_list";
 			}
 		
 		@PostMapping
-		public String processPost( @Valid MissingPerson mp, Errors errors,SessionStatus sessionStatus){
+		public String processPost( @Valid MissingPerson mp, Errors errors){
 			if (errors.hasErrors()) {
 				return "admin_mp";
 			}
 			MissingPerson savedMp = mpService.save(mp);
-			log.info("News object after persisting: " + savedMp);
-			sessionStatus.setComplete();
+			log.info("Missing person  object after persisting: " + savedMp);
 			
-			return "redirect:/admin/missing-person/#mp_list";	
+			return "redirect:/admin/missingPerson/#mp_list";	
 		}
 		
 		@GetMapping("/edit/{id}")
@@ -83,7 +81,7 @@ public class AdminMissingPersonController {
 			}
 			mpService.update(mpEdit);
 			sessionStatus.setComplete();	
-			return "redirect:/admin/missing-person/#mp_list";	
+			return "redirect:/admin/missingPerson/#mp_list";	
 		}
 	}
 

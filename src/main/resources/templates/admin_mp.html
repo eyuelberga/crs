@@ -18,6 +18,7 @@ xmlns:th="http://www.thymeleaf.org">
     </div>
     <div id="post_mp" class="  container row">
       <form method="POST" class="col s12" th:action="@{/admin/missing-person}" th:object="${mp}"  name="mp_form" >
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <h4>File missing person report</h4>
         	<div class="row" th:if="${#fields.hasErrors()}">
 				<span class="red-text"> Validation Error! Please correct your input and resubmit. </span>

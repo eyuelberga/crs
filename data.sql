@@ -10,3 +10,4 @@ INSERT INTO crs.city (name) VALUES ('Addis Ababa'),
 										   ('Dire Dawa'),
 										   ('Mekele')
 										  ;
+INSERT INTO crs.role (role) VALUES ('USER'),VALUES ('ADMIN');

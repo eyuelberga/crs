@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'Login')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragment">
+</header>
+	<main class="amber lighten-3">
+    <section class=" section row center-align container">
+        <div class="row">
+ <div id="signup" class=" container row ">
+      <form class="col s12" th:action="@{/signup}" th:object="${user}" th:method="POST" name="signup_form"  role = form"">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        <h4>Signup</h4>
+         <div><span class="green-text" th:utext="${successMessage}"></span></div>
+        <div class="row" th:if="${#fields.hasErrors()}">
+				<span class="red-text"> Validation Error! Please correct your input and resubmit. </span>
+			</div>
+       <div class="row">
+          <div class="input-field col s12 l6">
+          <input id="name" type="text" th:field="*{fullname}" class="validate">
+          <label for="name">Full Name</label>
+           <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('fullname')}"
+					th:errors="*{fullname}">ERROR
+			</span>
+        </div>
+        <div class="input-field col s12 l6">
+          <input id="username" type="text" th:field="*{username}" class="validate">
+          <label for="username">Username</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('username')}"
+					th:errors="*{username}">ERROR
+			</span>
+        </div>
+      </div>
+
+      <div class="row">
+      <div class="input-field col s4 ">
+          <input id="telephone" type="number" th:field="*{phoneNumber}" class="validate">
+          <label for="telephone">Phone Number</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('phoneNumber')}"
+					th:errors="*{phoneNumber}">ERROR
+			</span>
+        </div>
+        
+        <div class="input-field col s4">
+          <textarea id="address" th:field="*{streetAddress}" class="materialize-textarea"></textarea>
+          <label for="address">Street Address</label> 
+           <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('streetAddress')}"
+					th:errors="*{streetAddress}">ERROR
+			</span>
+        </div>
+          <div class="input-field col s4 ">
+    <select th:field="*{city}">
+      <option value="" disabled selected>Choose the City</option> 
+      <option th:each="city: ${cities}"
+      th:value="${city.id}" 
+      th:text="${city.name}">
+      city name</option>
+    </select>
+    <label>City</label>
+  </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 ">
+          <input id="password" type="password" th:field="*{password}" class="validate">
+          <label for="password">Password</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('password')}"
+					th:errors="*{password}">ERROR
+			</span>
+        </div>
+      </div>
+      <div class="row">
+           <div class="input-field col s12 ">
+          <input id="password_confirm" type="password" class="validate">
+          <label for="password_confirm">Confirm Password</label>
+        </div>
+      </div>
+      
+      <div class="row">
+        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-indigo waves-effect green darken-2'>Signup</button>
+      </div>
+     
+    </form>
+  </div>
+
+</div>
+        
+    </section>
+     </main>
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>
