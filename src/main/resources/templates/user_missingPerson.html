@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'News')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragmentUser">
+</header>
+<main class="amber lighten-3">
+    <section class=" section row left-align container">
+        <div class="row">
+    <div id="file_report" class="  container row">
+      <form class="col s12" method="post" name="news_form" th:action="@{/user/missingPerson}" th:object="${missingPerson}" enctype="multipart/form-data">
+         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+          <div class="row">
+        <h4>Missing Person Report Form</h4>
+        <p>If you  wish to file a missing person report please use this online police report form to signalize it. The police will review
+      and take the appropriate action. This Report will also be avaliable online for the public.</p>
+    </div>
+       <div class="row">
+            <div class="row" th:if="${#fields.hasErrors()}">
+				<span class="red-text"> Validation Error! Please correct your input and resubmit. </span>
+			</div>
+        <h6 class="indigo-text">Personal information about the missing person</h6>
+        <div class="input-field col s4">
+          <input th:field="*{fullname}" id="name" type="text" class="validate">
+          <label for="name">Full Name</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('fullname')}"
+					th:errors="*{fullname}">Error
+			</span>
+        </div>
+
+        <div class="input-field col s4 ">
+          <input th:field="*{age}" id="Age" type="number" class="validate">
+          <label for="Age">Age</label>
+           <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('age')}"
+					th:errors="*{age}">Error
+			</span>
+        </div>
+
+        <div class="input-field col s4 ">
+          <br>
+      <span>
+      <label>
+        <input  th:field="*{gender}" th:value="true" name="group1" class="with-gap" type="radio"  />
+        <span>Male</span>
+      </label></span>
+      <span>
+      <label>
+        <input th:field="*{gender}" th:value="false" name="group1" class="with-gap" type="radio" checked/>
+        <span>Female</span>
+      </label></span>
+        </div>
+
+      </div>
+
+     
+      <div class="row">
+          <h6 class="indigo-text">When did the incident happen?</h6>
+        <div class="input-field col s12">
+         <input  th:field="*{dateMissing}" type="text" class="datepicker">
+          <label for="content">Date Missing</label>
+           <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('dateMissing')}"
+					th:errors="*{dateMissing}">Error
+			</span>
+        </div>
+      </div>
+      <div class="row">
+         <h6 class="indigo-text">Detailed information</h6>
+         
+
+   <div class="input-field col s12">
+          <textarea  th:field="*{description}" id="content" class="materialize-textarea"></textarea>
+          <label for="content">Please describe the missing person in detail</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('description')}"
+					th:errors="*{description}">Error
+			</span>
+        </div>
+        <div class="file-field input-field  col s12">
+      <div class="btn">
+        <span>Upload image of the missing person</span>
+        <input name="file" type="file">
+      </div>
+      <div class="file-path-wrapper">
+        <input  class="file-path validate" type="text">
+      </div>
+      
+    </div>
+</div>
+
+      <div class="row">
+        <div class="input-field col s4 "></div>
+         <div class="input-field col s4 ">
+        <button type='submit' name='btn_crime_post' class='col s12 btn btn-large waves-green waves-effect purple darken-1'>File Report</button></div>
+        <div class="input-field col s4 "></div>
+      </div>
+     
+    </form>
+  </div>
+  </section>
+     </main>
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>
