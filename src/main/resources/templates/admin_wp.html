@@ -17,52 +17,77 @@ xmlns:th="http://www.thymeleaf.org">
       </ul>
     </div>
     <div id="post_wp" class="  container row">
-      <form method="POST" class="col s12" th:action="@{/admin/wanted-person}" th:object="${wp}"  name="wp_form" >
+      <form method="POST" class="col s12" th:action="@{/admin/wantedPerson}" th:object="${wp}"  name="wp_form" enctype="multipart/form-data" >
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <h4>Add a Wanted Person Post</h4>
-        	<div class="row" th:if="${#fields.hasErrors()}">
+        	 <div class="row">
+            <div class="row" th:if="${#fields.hasErrors()}">
 				<span class="red-text"> Validation Error! Please correct your input and resubmit. </span>
 			</div>
-       <div class="row">
-        <div class="input-field col l6 s12">
-          <input id="name" type="text" th:field="*{name}" class="validate">
-          <label for="name">Name</label>
+        
+        <div class="input-field col s4">
+          <input th:field="*{fullname}" id="name" type="text" class="validate">
+          <label for="name">Full Name</label>
           <span
-					class="helper-text red-text" th:if="${#fields.hasErrors('name')}"
-					th:errors="*{name}">{name error}
+					class="helper-text red-text" th:if="${#fields.hasErrors('fullname')}"
+					th:errors="*{fullname}">Error
 			</span>
         </div>
-         <div class="input-field col l6 s12">
-          <input id="gender" type="text" th:field="*{gender}" class="validate">
-          <label for="gender">Gender</label>
-          <span
-          class="helper-text red-text" th:if="${#fields.hasErrors('gender')}"
-          th:errors="*{gender}">{Gender error}
-      </span>
-        </div>
-      </div>
 
-       <div class="row">
-        <div class="input-field col l6 s12">
-          <input id="age" type="text" th:field="*{age}" class="validate">
-          <label for="age">Age</label>
-          <span
-          class="helper-text red-text" th:if="${#fields.hasErrors('age')}"
-          th:errors="*{age}">{age error}
-      </span>
+        <div class="input-field col s4 ">
+          <input th:field="*{age}" id="Age" type="number" class="validate">
+          <label for="Age">Age</label>
+           <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('age')}"
+					th:errors="*{age}">Error
+			</span>
         </div>
-         <div class="input-field col l6 s12">
-          <input id="description" type="text" th:field="*{description}" class="validate">
-          <label for="description">Description</label>
-          <span
-          class="helper-text red-text" th:if="${#fields.hasErrors('description')}"
-          th:errors="*{description}">{description error}
-      </span>
+
+        <div class="input-field col s4 ">
+          <br>
+      <span>
+      <label>
+        <input  th:field="*{gender}" th:value="Male" name="group1" class="with-gap" type="radio"  />
+        <span>Male</span>
+      </label></span>
+      <span>
+      <label>
+        <input th:field="*{gender}" th:value="Female" name="group1" class="with-gap" type="radio" checked/>
+        <span>Female</span>
+      </label></span>
         </div>
+
       </div>
+      
+            <div class="row">
+         
+         
+
+   <div class="input-field col s12">
+          <textarea  th:field="*{description}" id="content" class="materialize-textarea"></textarea>
+          <label for="content">Please describe the wanted person in detail</label>
+          <span
+					class="helper-text red-text" th:if="${#fields.hasErrors('description')}"
+					th:errors="*{description}">Error
+			</span>
+        </div>
+        <div class="file-field input-field  col s12">
+      <div class="btn">
+        <span>Upload image of the wanted person</span>
+        <input name="file" type="file">
+      </div>
+      <div class="file-path-wrapper">
+        <input  class="file-path validate" type="text">
+      </div>
+      
+    </div>
+</div>
 
       <div class="row">
-        <button type='submit' name='btn_wp_post' class='col s12 btn btn-large waves-green waves-effect purple darken-1'>Post</button>
+        <div class="input-field col s4 "></div>
+         <div class="input-field col s4 ">
+        <button type='submit' name='btn_crime_post' class='col s12 btn btn-large waves-green waves-effect purple darken-1'>Post</button></div>
+        <div class="input-field col s4 "></div>
       </div>
      
     </form>
@@ -77,17 +102,17 @@ xmlns:th="http://www.thymeleaf.org">
       </div>
       <div  class="row " th:each = "wp : ${all_wp}">
     <div  class="col s12 l12 prev-wp-card">
-       <div class="card  purple lighten-3 ">
+         <div class="card   blue-grey lighten-4 ">
         <div class="card-content black-text">
-          <span   class="card-title" th:text = "${wp.name}" >{wp name}
-          </span>
-          <p th:text = "|Gender:${wp.gender}|" >{wp gender}</p>
-          <p th:text = "|Age:${wp.age}|" >{wp age}</p>
-          <p th:text = "|Description:${wp.description}|" >{wp description}</p>
-            <span class="new badge light-green darken-2" data-badge-caption="" th:text = "${#dates.format(wp.createdAt,'dd-MM-yyyy HH:mm')}" >{Date Created}</span>
+          <p th:utext = "|<strong>Full Name:</strong> ${wp.fullname}		<strong>Age:</strong> ${wp.age} <br><strong>Gender:</strong> ${wp.gender}|" class="card-title">{Name Age Gender} 
+          <span class="new badge light-green darken-2" data-badge-caption="" th:text = "${#dates.format(mp.createdAt,'dd-MM-yyyy HH:mm')}" >{Date Created}</span>
+          </p>
+          <img class="materialboxed" width="250" height="250" th:src="${wp.picturePath}">
+          <p th:text = "${wp.description}">{I am a very simple card. I am good at containing small bits of information.
+                    I am convenient because I require little markup to use effectively.}</p>
         </div>
-         <div class="card-action right-align">
-          <a  th:href = "@{/admin/wanted-person/edit/{id} (id=${wp.id}) }" class="btn-floating waves-effect waves-light amber accent-4"><i class="fa fa-edit fa-2x"></i></a>
+          <div class="card-action right-align">
+          <a  th:href = "@{/admin/wantedPerson/edit/{id} (id=${wp.id}) }" class="btn-floating waves-effect waves-light amber accent-4"><i class="fa fa-edit fa-2x"></i></a>
           <button  data-target="delete_modal"  th:onclick="'showDeleteModalWp(\''+${wp.id} + '\')'"  class="btn-floating waves-effect modal-trigger waves-light red darken-1"><i class="fa fa-trash-o fa-2x"></i></button>
         </div>
       </div>

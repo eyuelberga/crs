@@ -116,8 +116,8 @@ xmlns:th="http://www.thymeleaf.org">
     </a>
     <ul class="right hide-on-med-and-down">
       <li><a  th:href="@{/admin/news}">NEWS</a></li>
-      <li><a th:href="@{/admin/reported/crime}">REPORTED CRIMES</a></li>
-      <li><a th:href="@{/wanted}">WANTED PERSON</a></li>
+      <li><a th:href="@{/admin/reportedCrime}">REPORTED CRIMES</a></li>
+      <li><a th:href="@{/admin/wantedPerson}">WANTED PERSON</a></li>
       <li><a th:href="@{/admin/stolenVehicle}">STOLEN VEHICLE</a></li>
       <li><a th:href="@{/admin/missingPerson}">MISSING PERSON</a></li>
       <li><a th:href="@{/logout}">LOGOUT</a></li>
@@ -217,6 +217,7 @@ xmlns:th="http://www.thymeleaf.org">
   $('.modal').modal();
   $('.datepicker').datepicker();
   $('select').formSelect();
+  $('.materialboxed').materialbox();
   
   /* smooth transition between tabs*/
   $('#new_post_tab').click(function(){
@@ -243,12 +244,12 @@ xmlns:th="http://www.thymeleaf.org">
 
   function showDeleteModalWp(id){
 	  var delete_btn = document.getElementById("delete_modal_button");
-	  delete_btn.setAttribute("href","/admin/wanted-person/deleteWp?id="+id+"")
+	  delete_btn.setAttribute("href","/admin/wantedPerson/deleteWp?id="+id+"")
 	}
 
   function showDeleteModalMp(id){
 	  var delete_btn = document.getElementById("delete_modal_button");
-	  delete_btn.setAttribute("href","/admin/missing-person/deleteMp?id="+id+"")
+	  delete_btn.setAttribute("href","/admin/missingPerson/deleteMp?id="+id+"")
 	}
 
 

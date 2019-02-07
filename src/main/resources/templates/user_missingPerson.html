@@ -9,7 +9,6 @@ xmlns:th="http://www.thymeleaf.org">
 </header>
 <main class="amber lighten-3">
     <section class=" section row left-align container">
-        <div class="row">
     <div id="file_report" class="  container row">
       <form class="col s12" method="post" name="news_form" th:action="@{/user/missingPerson}" th:object="${missingPerson}" enctype="multipart/form-data">
          <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
@@ -45,12 +44,12 @@ xmlns:th="http://www.thymeleaf.org">
           <br>
       <span>
       <label>
-        <input  th:field="*{gender}" th:value="true" name="group1" class="with-gap" type="radio"  />
+        <input  th:field="*{gender}" th:value="Male" name="group1" class="with-gap" type="radio"  />
         <span>Male</span>
       </label></span>
       <span>
       <label>
-        <input th:field="*{gender}" th:value="false" name="group1" class="with-gap" type="radio" checked/>
+        <input th:field="*{gender}" th:value="Female" name="group1" class="with-gap" type="radio" checked/>
         <span>Female</span>
       </label></span>
         </div>

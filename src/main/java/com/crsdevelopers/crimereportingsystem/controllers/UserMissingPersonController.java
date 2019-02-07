@@ -65,17 +65,6 @@ public class UserMissingPersonController {
         if (bindingResult.hasErrors()) {
             return "user_missingPerson";
         }
-        //File file = new File(missingPerson.getFile());
-        //file.getAbsoluteFile();
-//        DiskFileItem fileItem = new DiskFileItem("file","application/octet-stream",false,file.getName(),(int) file.length(),file.getParentFile());
-//        fileItem.getOutputStream();
-        //FileInputStream input = new FileInputStream(file);
-        //MultipartFile f = new MockMultipartFile("file",input);
-        //MultipartFile f = missingPerson.getFile();
-        
-        
-        //MultipartFile f = new MultipartFile("file",file.getName(),"text/plain",IOUtils.toByteArray(input));
-        //MultipartFile f = (MultipartFile) missingPerson.getFile();
         String fileName = fileStorageService.storeFile(f);
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/wantedPerson/downloadFile/").path(fileName).toUriString();
 		missingPerson.setPicturePath(fileDownloadUri);

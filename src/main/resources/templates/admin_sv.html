@@ -77,13 +77,13 @@ xmlns:th="http://www.thymeleaf.org">
       </div>
       <div  class="row " th:each = "sv : ${all_sv}">
     <div  class="col s12 l12 prev-sv-card">
-       <div class="card  purple lighten-3 ">
+       <div class="card   blue-grey lighten-4 ">
         <div class="card-content black-text">
-          <span   class="card-title" th:text = "${sv.licensePlate}" >{sv plate}
+          <span   class="card-title" th:utext = "|<strong>License Plate:</strong>${sv.licensePlate}|" >{sv plate}
           </span>
-          <p th:text = "|Name:${sv.name}|" >{sv name}</p>
-          <p th:text = "|Model:${sv.model}|" >{sv model}</p>
-          <p th:text = "|Color:${sv.color}|" >{sv color}</p>
+          <p th:utext = "|<strong>Name:</strong> ${sv.name}|" >{sv name}</p>
+          <p th:utext = "|<strong>Model:</strong> ${sv.model}|" >{sv model}</p>
+          <p th:utext = "|<strong>Color:</strong> ${sv.color}|" >{sv color}</p>
             <span class="new badge light-green darken-2" data-badge-caption="" th:text = "${#dates.format(sv.createdAt,'dd-MM-yyyy HH:mm')}" >{Date Created}</span>
         </div>
          <div class="card-action right-align">

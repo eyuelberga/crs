@@ -59,8 +59,7 @@ public class User implements UserDetails{
     @NotBlank(message="Street Address is required")
     private String streetAddress;
     
-    @ManyToOne
-	@MapsId
+    @ManyToOne(cascade = CascadeType.ALL)
 	private City city;
     //@Pattern(regexp="^[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{3}$", message="Must be formatted XXX-XXX-XXX-XXX")
     @NotBlank(message="Phone number is required")

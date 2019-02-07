@@ -1,7 +1,7 @@
 package com.crsdevelopers.crimereportingsystem.domains;
 
 
-import java.io.File;
+
 import java.util.Date;
 
 
@@ -10,14 +10,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-import org.springframework.web.multipart.MultipartFile;
+import javax.persistence.PrePersist;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+
+
 
 import lombok.Data;
 
@@ -29,17 +31,18 @@ public class MissingPerson{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	//@NotNull
-	//@Size(min=2, message="Name must be at least 2 characters long")
+	@NotNull
+	@NotBlank( message="Full Name must be not be blank")
 	private String fullname;
-	//@NotNull
+	@NotNull
 	private int age;
-	//@NotNull
-	private boolean gender;
-	//@NotNull
-	//@Size(min=5,  max =5000, message="Description must be at least 5 characters long")
+	@NotNull
+	private String gender;
+	@NotNull
+	@Lob
+	@NotBlank( message="Description must be not be blank")
 	private String description;
-	//@NotNull
+	@NotNull
 	private String dateMissing;
 
 	
@@ -49,9 +52,7 @@ public class MissingPerson{
 	private  User user;
 	
 	private String picturePath;
-	//@Transient
-	//private MultipartFile file;
-	
+
 	@PrePersist
 	void createdAt() {
 		this.createdAt = new Date();

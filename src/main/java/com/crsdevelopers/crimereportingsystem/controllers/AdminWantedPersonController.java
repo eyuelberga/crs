@@ -1,4 +1,5 @@
 package com.crsdevelopers.crimereportingsystem.controllers;
+import java.io.IOException;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +14,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.crsdevelopers.crimereportingsystem.domains.WantedPerson;
+import com.crsdevelopers.crimereportingsystem.services.FileStorageService;
 import com.crsdevelopers.crimereportingsystem.services.WantedPersonService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("admin/wanted-person")
-@SessionAttributes("wp")
+@RequestMapping("admin/wantedPerson")
 public class AdminWantedPersonController {
 	private WantedPersonService wpService;
+	private FileStorageService fileStorageService;
 	
 	@Autowired
-	public AdminWantedPersonController(WantedPersonService wpService) {
+	public AdminWantedPersonController(WantedPersonService wpService, FileStorageService fileStorageService) {
 		this.wpService = wpService;
+		this.fileStorageService = fileStorageService;
 		}
 	
 	@ModelAttribute(name="wp")
@@ -50,19 +56,21 @@ public class AdminWantedPersonController {
 		WantedPerson wp = new WantedPerson();
 		wp.setId(id);
 		wpService.delete(wp);
-		return "redirect:/admin/wanted-person/#wp_list";
+		return "redirect:/admin/wantedPerson/#wp_list";
 		}
 	
 	@PostMapping
-	public String processPost( @Valid WantedPerson wp, Errors errors,SessionStatus sessionStatus){
+	public String processPost( @RequestParam("file") MultipartFile f, @Valid WantedPerson wp, Errors errors) throws IOException{
 		if (errors.hasErrors()) {
 			return "admin_wp";
 		}
+		String fileName = fileStorageService.storeFile(f);
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/wantedPerson/downloadFile/").path(fileName).toUriString();
+		wp.setPicturePath(fileDownloadUri);
 		WantedPerson savedWp = wpService.save(wp);
 		log.info("News object after persisting: " + savedWp);
-		sessionStatus.setComplete();
 		
-		return "redirect:/admin/wanted-person/#wp_list";	
+		return "redirect:/admin/wantedPerson/#wp_list";	
 	}
 	
 	@GetMapping("/edit/{id}")
@@ -73,14 +81,13 @@ public class AdminWantedPersonController {
 	}
 	
 	@PostMapping("/update/{id}")
-	public String processUpdate(@PathVariable("id") Long id, @Valid WantedPerson wpEdit, Errors errors,SessionStatus sessionStatus) {
+	public String processUpdate(@PathVariable("id") Long id, @Valid WantedPerson wpEdit, Errors errors) {
 		if (errors.hasErrors()) {
 			wpEdit.setId(id);
 			return "admin_edit_wp";
 		}
 		wpService.update(wpEdit);
-		sessionStatus.setComplete();	
-		return "redirect:/admin/wanted-person/#wp_list";	
+		return "redirect:/admin/wantedPerson/#wp_list";	
 	}
 }
 
