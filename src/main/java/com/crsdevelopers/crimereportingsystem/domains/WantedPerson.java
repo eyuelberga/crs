@@ -19,9 +19,9 @@ import lombok.Data;
 @Entity
 @Table(name="wanted_person",schema="crs")
 public class WantedPerson {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private Long id;
 	    @NotBlank(message = "Please provide your full name")
 	    private String fullname;
 	    @NotNull
