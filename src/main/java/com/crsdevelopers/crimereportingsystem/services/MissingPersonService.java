@@ -28,6 +28,9 @@ public class MissingPersonService {
 		repository.delete(mp);
 
 	}
+	public void deleteById(Long id) {
+		repository.deleteById(id);
+	}
 
 
 	public MissingPerson getById(Long id) {

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'User Home')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragmentUser">
+</header>
+<main class="amber lighten-3">
+        <div id="file_report" class="  container row">
+         <section class="row center-align ">
+        <br><br>
+        <h4 class="green-text" >What do you want to do?</h4>
+        
+         <div><span class="purple-text" th:utext="${successMessage}"></span></div>
+         <div class="row">
+        <div class="col s12 m6 l4">
+            <h1 class=" green-text  fa fa-5x fa-file-o"></h1>
+            <form  method="get" th:action="@{/user/report}">
+            <button type="submit" class="light-green darken-2 btn waves-effect ">File a Crime Report</button></form>
+           
+        </div>
+        <div class="col s12 m6 l4">
+            <h1 class="  green-text  fa fa-5x fa-user"> </h1><h1 class="  green-text  fa fa-5x fa-file-o"></h1>
+             <form  method="get" th:action="@{/user/missingPerson}">
+            <button type="submit" class=" light-green  darken-2 btn waves-effect ">Missing Person Report</button></form>
+        </div>
+        <div class="col s12 m6 l4">
+             <h1 class="  green-text  fa fa-5x fa-newspaper-o"></h1>
+            <form  method="get" th:action="@{/news}">
+            <button type="submit" class="light-green darken-2 btn waves-effect ">News Section</button></form>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col s12 m6 l4">
+             <h1 class="  green-text  fa fa-5x fa-sign-out"></h1>
+            <form  method="get" th:action="@{/logout}">
+            <button type="submit" class="light-green darken-2 btn waves-effect ">Logout</button>
+          </form>
+        </div>
+
+        </div>
+    </section>
+  </div>
+     </main>
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>

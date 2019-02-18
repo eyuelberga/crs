@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.crsdevelopers.crimereportingsystem.domains.WantedPerson;
+import com.crsdevelopers.crimereportingsystem.exception.FileStorageException;
 import com.crsdevelopers.crimereportingsystem.services.FileStorageService;
 import com.crsdevelopers.crimereportingsystem.services.WantedPersonService;
 import lombok.extern.slf4j.Slf4j;
@@ -80,12 +81,27 @@ public class AdminWantedPersonController {
 		return "admin_edit_wp";	
 	}
 	
-	@PostMapping("/update/{id}")
-	public String processUpdate(@PathVariable("id") Long id, @Valid WantedPerson wpEdit, Errors errors) {
+	@PostMapping("/edit/{id}")
+	public String processUpdate(@PathVariable("id") Long id, @RequestParam("file") MultipartFile f,@Valid WantedPerson wpEdit, Errors errors){
 		if (errors.hasErrors()) {
 			wpEdit.setId(id);
 			return "admin_edit_wp";
 		}
+		String fileName;
+		try {
+			fileName = fileStorageService.storeFile(f);
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/wantedPerson/downloadFile/").path(fileName).toUriString();
+			wpEdit.setPicturePath(fileDownloadUri);
+		}
+		catch(FileStorageException e){
+			wpEdit.setPicturePath(wpService.getById(id).getPicturePath());
+			wpService.update(wpEdit);
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		wpService.update(wpEdit);
 		return "redirect:/admin/wantedPerson/#wp_list";	
 	}

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.crsdevelopers.crimereportingsystem.domains.City;
 import com.crsdevelopers.crimereportingsystem.domains.User;
@@ -50,7 +51,7 @@ public class LoginController {
         return "signup";
     }
 	   @PostMapping("/signup")
-	    public String createNewUser(@Valid User user, BindingResult bindingResult, Model model) {
+	    public String createNewUser(@Valid User user, BindingResult bindingResult, RedirectAttributes atts) {
 	        User userExists = userService.findUserByUsername(user.getUsername());
 	        if (userExists != null) {
 	            bindingResult
@@ -62,8 +63,7 @@ public class LoginController {
 	        } else {
 	        	
 	            userService.save(user);
-	            
-	            model.addAttribute("successMessage", "User has been registered successfully");
+	            atts.addFlashAttribute("successMessage", "User has been registered successfully");
 	            
 	            return "redirect:/login";
 	        }

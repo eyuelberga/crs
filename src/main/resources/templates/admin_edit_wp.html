@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/layout :: headFragment (pageTitle = 'wp')">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'Edit Wanted Person')">
 </head>
 <body class="  amber lighten-1">
 <!-- navbar -->
@@ -9,7 +9,7 @@ xmlns:th="http://www.thymeleaf.org">
 </header>
 <main class="amber lighten-3">
     <div id="post_wp" class="  container row">
-      <form method="POST" class="col s12" action="#" th:action="@{/admin/wantedPerson/update/{id} (id=${wp.id}) }" th:object="${wp}" enctype="multipart/form-data"  >
+      <form method="POST" class="col s12" action="#" th:action="@{/admin/wantedPerson/edit/{id} (id=${wp.id}) }" th:object="${wp}" enctype="multipart/form-data"  >
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <h4>Edit Wanted Person Post</h4>
         	<div class="row" th:if="${#fields.hasErrors()}">
@@ -60,7 +60,7 @@ xmlns:th="http://www.thymeleaf.org">
 	      <div class="row">
          
    <div class="input-field col s12">
-          <textarea th:value="{wp.description}" th:field="*{description}" id="content" class="materialize-textarea"></textarea>
+          <textarea th:value="${wp.description}" th:field="*{description}" id="content" class="materialize-textarea"></textarea>
           <label for="content">Please describe the wanted person in detail</label>
           <span
 					class="helper-text red-text" th:if="${#fields.hasErrors('description')}"
@@ -70,10 +70,10 @@ xmlns:th="http://www.thymeleaf.org">
         <div class="file-field input-field  col s12">
       <div class="btn">
         <span>Upload image of the wanted person</span>
-        <input name="file" type="file">
+        <input name="file" type="file" th:value="${wp.picturePath}">
       </div>
       <div class="file-path-wrapper">
-        <input  class="file-path validate" type="text">
+        <input  class="file-path validate" type="text" >
       </div>
       
     </div>

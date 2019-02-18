@@ -29,6 +29,9 @@ public class WantedPersonService {
 		repository.delete(wantedPerson);
 
 	}
+	public void deleteById(Long id) {
+		repository.deleteById(id);
+	}
 
 
 	public WantedPerson getById(Long id) {

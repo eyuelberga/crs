@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'News')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragmentAdmin">
+</header>
+<main class="amber lighten-3">
+<div id="file_report" class="  container row">
+      <section class="row center-align ">
+        <br><br>
+        <h4 class="green-text" >What do you want to do?</h4>
+        
+         <div><span class="purple-text" th:utext="${successMessage}"></span></div>
+        <div class="row">
+        <div class="col s12 m6 l4">
+            <h1 class=" green-text  fa fa-5x fa-file-o"></h1>
+            <form  method="get" th:action="@{/admin/reportedCrime}">
+            <button type="submit" class="light-green darken-2 btn waves-effect ">Manage Reported Crime</button></form>
+           
+        </div>
+        <div class="col s12 m6 l4">
+            <h1 class="  green-text  fa fa-5x fa-user"> </h1><h1 class="  green-text  fa fa-5x fa-file-o"></h1>
+             <form  method="get" th:action="@{/admin/missingPerson}">
+            <button type="submit" class=" light-green  darken-2 btn waves-effect ">Manage Missing Person Report</button></form>
+        </div>
+        <div class="col s12 m6 l4">
+             <h1 class="  green-text  fa fa-5x fa-newspaper-o"></h1>
+            <form  method="get" th:action="@{/admin/news}">
+            <button type="submit" class="light-green darken-2 btn waves-effect ">Manage News</button></form>
+        </div>
+</div>
+        <div class="row">
+            <div class="col s12 m6 l4">
+              <h1 class="  green-text  fa fa-5x fa-user-secret"> </h1><h1 class="  green-text  fa fa-5x fa-file-o"></h1>
+            <form  method="get" th:action="@{/admin/wantedPerson}">
+            <button type="submit" class="light-green darken-2 btn waves-effect ">Manage Wanted Person</button></form>
+        </div>
+
+          <div class="col s12 m6 l4">
+             <h1 class="  green-text  fa fa-5x fa-car"></h1><h1 class="  green-text  fa fa-5x fa-file-o"></h1>
+            <form  method="get" th:action="@{/admin/stolenVehicle}">
+            <button type="submit" class="light-green darken-2 btn waves-effect ">Manage Stolen Vehicle</button></form>
+        </div>
+
+        <div class="col s12 m6 l4">
+             <h1 class="  green-text  fa fa-5x fa-sign-out"></h1>
+            <form  method="get" th:action="@{/logout}">
+            <button type="submit" class="light-green darken-2 btn waves-effect ">Logout</button>
+          </form>
+        </div>
+
+        </div>
+    </section></div>
+     </main>
+     
+     <div th:replace="fragments/layout :: deleteModalFragment">
+    </div>
+
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>

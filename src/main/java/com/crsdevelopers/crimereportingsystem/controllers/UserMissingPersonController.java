@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.crsdevelopers.crimereportingsystem.domains.Report;
@@ -60,19 +61,20 @@ public class UserMissingPersonController {
     }
 
     @PostMapping()
-    public String submitMissingPersonForm(@RequestParam("file") MultipartFile f, @ModelAttribute @Valid MissingPerson missingPerson, BindingResult bindingResult,@AuthenticationPrincipal User user ) throws IOException {
+    public String submitMissingPersonForm(@RequestParam("file") MultipartFile f, @ModelAttribute @Valid MissingPerson missingPerson, BindingResult bindingResult,@AuthenticationPrincipal User user, RedirectAttributes atts ) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return "user_missingPerson";
         }
         String fileName = fileStorageService.storeFile(f);
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/wantedPerson/downloadFile/").path(fileName).toUriString();
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/missingPerson/downloadFile/").path(fileName).toUriString();
 		missingPerson.setPicturePath(fileDownloadUri);
 		
         missingPerson.setUser(user);
         missingPersonService.save(missingPerson);
+        atts.addFlashAttribute("successMessage", "Missing Person Report Sent");
 
-        return "redirect:/";
+        return "redirect:/user";
     }
     
     
