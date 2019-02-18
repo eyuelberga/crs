@@ -3,6 +3,9 @@ package com.crsdevelopers.crimereportingsystem.services;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.crsdevelopers.crimereportingsystem.domains.StolenVehicle;
 import com.crsdevelopers.crimereportingsystem.repositories.StolenVehicleRepository;
@@ -31,7 +34,10 @@ public class StolenVehicleService {
 
 
 	public StolenVehicle getById(Long id) {
-		return repository.findById(id).get();
+		if(repository.existsById(id)) {
+			return repository.findById(id).get();
+		}
+		return null;
 	}
 
 
@@ -39,6 +45,14 @@ public class StolenVehicleService {
 		 List<StolenVehicle> all = (List<StolenVehicle>) repository.findAll();
 		 Collections.reverse(all);
 		return all;
+	}
+	
+	public Iterable<StolenVehicle> findAll(Sort sort) {
+		return repository.findAll(sort);
+	}
+
+	public Page<StolenVehicle> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'CRC News')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragment">
+</header>
+<div class="amber lighten-2">
+<section id="banner" class=" center container section">
+        <h2 >Crime Report Center News </h2>
+    </section>
+  </div>
+    <section class="row center-align container">
+        <br><br>
+        <h4>Recent News </h4>
+    <div class="col s12 m6 l4" th:each = "news : ${recent_news}">
+      <div class="card blue-grey lighten-4 ">
+        <div class="card-content black-text">
+          <span class="card-title" th:text="${news.title}">Card Title</span>
+          <p th:text="${news.content}">I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+        </div>
+        <div class="card-action">
+          <a class=" purple-text" th:href="@{public/news/1}">Read More</a>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+
+<div th:replace="fragments/layout :: scriptFragment"></div>
+
+</body>
+</html>

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +32,7 @@ import com.crsdevelopers.crimereportingsystem.services.FileStorageService;
 import com.crsdevelopers.crimereportingsystem.services.WantedPersonService;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping(path = "/api/wantedPerson", produces="application/json" )
 public class WantedPersonRestController {
@@ -78,6 +79,14 @@ public class WantedPersonRestController {
 			
 		}
 	}
+	
+	@GetMapping("/recent")
+	public Iterable<WantedPerson> recentWantedPerson(@RequestParam(name="page",defaultValue="0") int page, @RequestParam(name="size", defaultValue="3") int size) {
+		
+		PageRequest pageRequest = PageRequest.of(page,size,Sort.by("createdAt").descending());
+		return wantedPersonService.findAll(pageRequest).getContent();
+	}
+	
 	
 	@GetMapping("/downloadFile/{fileName:.+}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){

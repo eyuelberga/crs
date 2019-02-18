@@ -2,7 +2,6 @@ package com.crsdevelopers.crimereportingsystem.api;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ import com.crsdevelopers.crimereportingsystem.services.MissingPersonService;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping(path = "/api/missingPerson", produces="application/json" )
 public class MissingPersonRestController {
@@ -79,6 +80,13 @@ public class MissingPersonRestController {
 			
 		}
 		
+	}
+	
+	@GetMapping("/recent")
+	public Iterable<MissingPerson> recentMissingPerson(@RequestParam(name="page",defaultValue="0") int page, @RequestParam(name="size", defaultValue="3") int size) {
+		
+		PageRequest pageRequest = PageRequest.of(page,size,Sort.by("createdAt").descending());
+		return missingPersonService.findAll(pageRequest).getContent();
 	}
 	
 	@GetMapping("/downloadFile/{fileName:.+}")
