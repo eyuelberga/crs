@@ -16,7 +16,7 @@ xmlns:th="http://www.thymeleaf.org">
       <form class="col s12" th:action="@{/login}" th:method="post" name="login_form" >
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <h4>Login</h4>
-         <p><span th:utext="${successMessage}"></span></p>
+         <p><span class="green-text" th:utext="${successMessage}"></span></p>
        <div class="row">
         <div class="input-field col s12">
           <input id="username" type="text" name="username"  th:placeholder="UserName" class="validate">

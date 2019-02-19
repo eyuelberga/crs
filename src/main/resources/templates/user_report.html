@@ -144,13 +144,13 @@ xmlns:th="http://www.thymeleaf.org">
           <p>Were you in any way affected by the incident?</p>
               <p>
       <label>
-        <input th:field="*{isAffected}" th:value= "true" name="group1" class="with-gap" type="radio"  />
+        <input th:field="*{isAffected}" th:value= "Yes" name="group1" class="with-gap" type="radio"  />
         <span>Yes</span>
       </label>
     </p>
     <p>
       <label>
-        <input th:field="*{isAffected}" th:value= "false" name="group1" class="with-gap" type="radio" checked/>
+        <input th:field="*{isAffected}" th:value= "No" name="group1" class="with-gap" type="radio" checked/>
         <span>No</span>
       </label>
     </p>

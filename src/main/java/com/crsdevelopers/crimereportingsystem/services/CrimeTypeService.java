@@ -35,6 +35,10 @@ public class CrimeTypeService {
 	public CrimeType getById(Long id) {
 		return repository.findById(id).get();
 	}
+	
+	public boolean isFound(Long id) {
+		return repository.existsById(id);
+	}
 
 
 	public List<CrimeType> getAll() {

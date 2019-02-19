@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -30,7 +31,6 @@ public class Report {
 	private Long id;
 	
 	@ManyToMany(targetEntity=CrimeType.class)
-	//@Size(min=1, message="You must choose at least 1 incident type")
 	private Set<CrimeType> crimeType = new HashSet<>();
 	
 	@NotBlank(message="Date can't be empty")
@@ -47,12 +47,13 @@ public class Report {
 	
 	@NotBlank(message="Description can't be empty")
 	@NotNull
+	@Lob
 	@Size(max = 5000)
 	private String description;
 	
 	private Integer peopleInvolved;
 	
-	private  Boolean isAffected;
+	private  String isAffected;
 	
 	private Date createdAt = new Date();
 	

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.crsdevelopers.crimereportingsystem.domains.Report;
 import com.crsdevelopers.crimereportingsystem.domains.User;
@@ -70,15 +72,25 @@ public class UserReportController {
     }
 
     @PostMapping()
-    public String submitReportForm(@ModelAttribute @Valid Report report, BindingResult bindingResult,@AuthenticationPrincipal User user ) {
+    public String submitReportForm(@RequestParam(value="crime", required = false) Long [] crimeTypes, @ModelAttribute @Valid Report report, BindingResult bindingResult,@AuthenticationPrincipal User user,  RedirectAttributes atts ) {
 
         if (bindingResult.hasErrors()) {
             return "user_report";
         }
+        if(crimeTypes != null) {
+        	CrimeType crimeType = null;
+        	for(int i = 0; i < crimeTypes.length; i++) {
+        		if(crimeTypeService.isFound(crimeTypes[i])) {
+        			report.getCrimeType().add(crimeTypeService.getById(crimeTypes[i]));
+        			
+        		}
+        	}
+        }
         report.setUser(user);
         reportService.save(report);
+        atts.addFlashAttribute("successMessage", "Crime Report Sent");
 
-        return "redirect:/";
+        return "redirect:/user";
     }
     
     private List<CrimeType> filterByType(List<CrimeType> ingredients, Type type){
