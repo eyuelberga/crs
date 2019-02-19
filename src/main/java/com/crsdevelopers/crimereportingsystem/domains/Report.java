@@ -56,6 +56,7 @@ public class Report {
 	private  String isAffected;
 	
 	private Date createdAt = new Date();
+	private boolean seen = false;
 	
 	@ManyToOne
 	private  User user;

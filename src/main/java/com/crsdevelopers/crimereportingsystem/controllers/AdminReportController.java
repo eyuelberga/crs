@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.crsdevelopers.crimereportingsystem.domains.Report;
@@ -26,10 +27,21 @@ public class AdminReportController {
 		return  reportService.getAll(); 
 		 
 	}
+	@ModelAttribute(name="unseen_reports")
+	public List<Report> getUnseen() {
+		return  reportService.getBySeen(false); 
+		 
+	}
 	
 	@GetMapping
 	public String reportsView() {
 		return "admin_report";
+	}
+	
+	@PostMapping
+	public String seen(Report report) {
+		report.setSeen(true);
+		return "redirect:/admin/reportedCrime";
 	}
 	
 }

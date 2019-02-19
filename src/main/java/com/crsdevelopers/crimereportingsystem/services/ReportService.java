@@ -35,7 +35,12 @@ public class ReportService {
 	public Report getById(Long id) {
 		return repository.findById(id).get();
 	}
-
+	
+	public List<Report> getBySeen(boolean seen) {
+		 List<Report> all = (List<Report>) repository.findBySeen(seen);
+		 Collections.reverse(all);
+		return all;
+	}
 
 	public List<Report> getAll() {
 		 List<Report> all = (List<Report>) repository.findAll();
