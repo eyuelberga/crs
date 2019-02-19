@@ -77,7 +77,7 @@ xmlns:th="http://www.thymeleaf.org">
 
         </div>
         <div class="card-action right-align">
-        <form method="post" th:object="${report}" th:action="@{admin/reportedCrime}">
+        <form method="post" th:object="${report}" th:action="@{/admin/reportedCrime/{id} (id=${report.id}) }">
           <button  type="submit" class="btn-floating waves-effect waves-light amber accent-4"><i class="fa fa-check fa-3x"></i></button>
           </form>
         </div>

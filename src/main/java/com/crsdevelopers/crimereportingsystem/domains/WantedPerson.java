@@ -2,6 +2,8 @@ package com.crsdevelopers.crimereportingsystem.domains;
 
 
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +35,7 @@ public class WantedPerson {
 		@Lob
 		@Size(min=5,  max =5000, message="Description must be at least 5 characters long")
 		private String description;
-	 
 	 private String picturePath;
+	 private Date createdAt = new Date();
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -32,6 +33,7 @@ public class News {
 	
 	@NotBlank(message="Content can't be empty")
 	@NotNull
+	@Lob
 	@Size(min=5,  max =5000, message="Content must be at least 5 characters long")
 	private String content;
 	

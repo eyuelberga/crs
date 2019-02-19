@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -38,9 +39,11 @@ public class AdminReportController {
 		return "admin_report";
 	}
 	
-	@PostMapping
-	public String seen(Report report) {
+	@PostMapping("/{id}")
+	public String seen(@PathVariable("id") Long id) {
+		Report report = reportService.getById(id);
 		report.setSeen(true);
+		reportService.update(report);
 		return "redirect:/admin/reportedCrime";
 	}
 	
