@@ -1,17 +1,11 @@
 package com.crsdevelopers.crimereportingsystem.controllers;
 
-import java.io.Console;
-import java.io.File;
-import java.io.FileInputStream;
+
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -23,23 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.crsdevelopers.crimereportingsystem.domains.Report;
 import com.crsdevelopers.crimereportingsystem.domains.User;
-import com.crsdevelopers.crimereportingsystem.domains.WantedPerson;
-import com.crsdevelopers.crimereportingsystem.domains.City;
-import com.crsdevelopers.crimereportingsystem.domains.CrimeType;
-import com.crsdevelopers.crimereportingsystem.domains.CrimeType.Type;
 import com.crsdevelopers.crimereportingsystem.domains.MissingPerson;
-import com.crsdevelopers.crimereportingsystem.services.CityService;
-import com.crsdevelopers.crimereportingsystem.services.CrimeTypeService;
 import com.crsdevelopers.crimereportingsystem.services.FileStorageService;
 import com.crsdevelopers.crimereportingsystem.services.MissingPersonService;
-import com.crsdevelopers.crimereportingsystem.services.ReportService;
-import com.crsdevelopers.crimereportingsystem.services.UserService;
 
 @Controller
 @RequestMapping("user/missingPerson")

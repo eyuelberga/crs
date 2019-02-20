@@ -7,6 +7,7 @@ xmlns:th="http://www.thymeleaf.org">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" type="text/css"   th:href="@{/vendor/materialize/css/materialize.min.css}">
   <link rel="stylesheet" type="text/css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/vendor/datatables/css/dataTables.material.min.css}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title th:text="${pageTitle}">Template Title</title>
   <style type="text/css">
@@ -81,13 +82,13 @@ xmlns:th="http://www.thymeleaf.org">
   <div class="navbar-fixed">
   <nav class="nav-wrapper grey darken-4 ">
   <div class="container">
-    <a href="" class="brand-logo amber-text text-lighten-2">CrimeReport</a>
+    <a href="@{/}" class="brand-logo amber-text text-lighten-2">CrimeReport</a>
     <a class="sidenav-trigger" data-target="mobile-menu" href="#">
       <span class="fa fa-navicon"></span>
     </a>
     <ul class="right hide-on-med-and-down">
       <li><a  th:href="@{/user/report}">REPORT A CRIME</a></li>
-      <li><a th:href="@{/public/recent}">NEWS</a></li>
+      <li><a th:href="@{/public}">NEWS</a></li>
       <li><a th:href="@{/login}">LOGIN</a></li>
     </ul>
    
@@ -110,7 +111,7 @@ xmlns:th="http://www.thymeleaf.org">
   <div class="navbar-fixed">
   <nav class="nav-wrapper grey darken-4 ">
   <div class="container">
-    <a href="" class="brand-logo amber-text text-lighten-2">Admin</a>
+    <a href="@{/admin}" class="brand-logo amber-text text-lighten-2">Admin</a>
     <a class="sidenav-trigger" data-target="mobile-menu" href="#">
       <span class="fa fa-navicon"></span>
     </a>
@@ -144,13 +145,14 @@ xmlns:th="http://www.thymeleaf.org">
   <div class="navbar-fixed">
   <nav class="nav-wrapper grey darken-4 ">
   <div class="container">
-    <a href="" class="brand-logo amber-text text-lighten-2">User</a>
+    <a href="@{/user}" class="brand-logo amber-text text-lighten-2">User</a>
     <a class="sidenav-trigger" data-target="mobile-menu" href="#">
       <span class="fa fa-navicon"></span>
     </a>
     <ul class="right hide-on-med-and-down">
       <li><a  th:href="@{/news}">NEWS</a></li>
       <li><a th:href="@{/user/report}">REPORT CRIME</a></li>
+      <li><a th:href="@{/user/report/status}">REPORT STATUS</a></li>
       <li><a th:href="@{/user/missingPerson}">FILE MISSING PERSON REPORT</a></li>
       <li><a th:href="@{/logout}">LOGOUT</a></li>
     </ul>
@@ -162,6 +164,7 @@ xmlns:th="http://www.thymeleaf.org">
       <ul  class="sidenav grey darken-4" id="mobile-menu">
       <li><a class="white-text" th:href="@{/news}">NEWS</a></li>
       <li><a class="white-text" th:href="@{/user/report}">REPORT CRIME</a></li>
+      <li><a class="white-text" th:href="@{/user/report/status}">REPORT STATUS</a></li>
       <li><a class="white-text" th:href="@{/user/missingPerson}">FILE MISSING PERSON REPORT</a></li>
       <li><a class="white-text" th:href="@{/admin/logout}">LOGOUT</a></li>
     </ul>
@@ -202,12 +205,22 @@ xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="scriptFragment">
 <script type="text/javascript" th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/vendor/datatables/js/jquery.dataTables.min.js}"></script>
 <script type="text/javascript" th:src="@{/vendor/materialize/js/materialize.min.js}"></script>
 <script type="text/javascript">
 
 
   $(document).ready(function(){
   $('.sidenav').sidenav();
+  $('#mpTable').DataTable({
+	  columnDefs:[
+		  {
+			  targets:[0,1,2],
+			  className: 'mdl-data-table__cell--non-numeric'
+		  }
+	  ]
+  });
+ 
   $('.dropdown-trigger').dropdown();
   $('.carousel').carousel({
     indicators: true,

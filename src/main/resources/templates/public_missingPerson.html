@@ -15,26 +15,31 @@ xmlns:th="http://www.thymeleaf.org">
         <div class="col s12">
           <h4>Missing Person Reports</h4>
         </div>
+        
+             <div class="table">
+                    <table id="mpTable" class="highlight table-responsive table table-bordered mdl-data-table ">
+                      <thead>
+                        <tr class = "success">
+                          <th>Name</th>
+                          <th>Age</th>
+                          <th>Date Missing</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                  		<tr th:each ="mp : ${all_mp}">
+                <td th:text="${mp.fullname}"></td>
+                <td th:text="${mp.age}"></td>
+                <td th:text="${mp.dateMissing}"></td>
+                <td><a class="btn red" th:href="@{/public/missingPerson/{id} (id = ${mp.id})}"> Full Info</a></td>
+                </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
            
       </div>
-      <div  class="row " th:each = "mp : ${all_mp}">
-      <div id="prev-news-card" class="row">
-    <div class="col s12 l12">
-      <div class="card   blue-grey lighten-4 ">
-        <div class="card-content black-text">
-          <p th:utext = "|<strong>Full Name:</strong> ${mp.fullname}		<strong>Age:</strong> ${mp.age} <br><strong>Gender:</strong> ${mp.gender}		<strong>Date Missing:</strong> ${mp.dateMissing}|" class="card-title">{Name Age Gender} 
-          <span class="new badge light-green darken-2" data-badge-caption="" th:text = "${#dates.format(mp.createdAt,'dd-MM-yyyy HH:mm')}" >{Date Created}</span>
-          </p>
-          <img class="materialboxed" width="250" height="250" th:src="${mp.picturePath}">
-          <p th:text = "${mp.description}">{I am a very simple card. I am good at containing small bits of information.
-                    I am convenient because I require little markup to use effectively.}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-     
-  </div>
-  </div>
 
     </section>
      </main>

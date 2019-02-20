@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +28,6 @@ import com.crsdevelopers.crimereportingsystem.domains.CrimeType.Type;
 import com.crsdevelopers.crimereportingsystem.services.CityService;
 import com.crsdevelopers.crimereportingsystem.services.CrimeTypeService;
 import com.crsdevelopers.crimereportingsystem.services.ReportService;
-import com.crsdevelopers.crimereportingsystem.services.UserService;
 
 @Controller
 @RequestMapping("user/report")
@@ -35,13 +36,12 @@ public class UserReportController {
 	private ReportService reportService;
 	private CrimeTypeService crimeTypeService;
 	private CityService cityService;
-	private UserService userService;
 	@Autowired
-	public UserReportController(ReportService reportService, CrimeTypeService crimeTypeService, CityService cityService, UserService userService) {
+	public UserReportController(ReportService reportService, CrimeTypeService crimeTypeService, CityService cityService) {
 		this.reportService = reportService;
 		this.crimeTypeService = crimeTypeService;
 		this.cityService = cityService;
-		this.userService = userService;
+		
 		
 	}
 	
@@ -64,6 +64,21 @@ public class UserReportController {
 		return cities; 
 	}
 	
+	public User getUser() {
+		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	}
+	
+	@ModelAttribute(name="user_reports")
+	public List<Report> getAllReports() {
+		return  reportService.getBySeenAndUsername(true,getUser()); 
+		 
+	}
+	@ModelAttribute(name="user_unseen_reports")
+	public List<Report> getUnseen() {
+		return  reportService.getBySeenAndUsername(false, getUser()); 
+		 
+	}
+	
 	
 	@GetMapping()
     public String showForm(Model model) {
@@ -78,7 +93,6 @@ public class UserReportController {
             return "user_report";
         }
         if(crimeTypes != null) {
-        	CrimeType crimeType = null;
         	for(int i = 0; i < crimeTypes.length; i++) {
         		if(crimeTypeService.isFound(crimeTypes[i])) {
         			report.getCrimeType().add(crimeTypeService.getById(crimeTypes[i]));
@@ -99,6 +113,11 @@ public class UserReportController {
 				.filter(x->x.getType().equals(type))
 				.collect(Collectors.toList());
 	}
+    
+    @GetMapping("/status")
+    public String getStaus() {
+    	return "user_report_status";
+    }
 
 
 }

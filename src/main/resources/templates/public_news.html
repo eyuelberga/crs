@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'News')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragment">
+</header>
+<main class="amber lighten-3">
+    <section class=" section row left-align container">
+ <div id="news_list" class=" container row ">
+       
+       <div class="row">
+        <div class="col s12">
+          <h4>News</h4>
+        </div>
+        
+             <div class="table">
+                    <table id="mpTable" class="highlight table-responsive table table-bordered mdl-data-table ">
+                      <thead>
+                        <tr class = "success">
+                          <th>Title</th>
+                          <th>Date Published</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                  		<tr th:each ="mp : ${all_news}">
+                <td th:text="${mp.title}"></td>
+                <td th:text="${mp.createdAt}"></td>
+                <td><a class="btn red" th:href="@{/public/news/{id} (id = ${mp.id})}"> Read</a></td>
+                </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+           
+      </div>
+
+    </section>
+     </main>
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>

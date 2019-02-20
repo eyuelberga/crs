@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'Report Status')">
+</head>
+<body class="  amber lighten-1">
+<!-- navbar -->
+<header th:replace="fragments/layout :: headerFragmentUser">
+</header>
+<main class="amber lighten-3">
+        <section class=" section row left-align container">
+        <div class="row">
+    <div  class="col s12">
+      <ul class="tabs amber lighten-3">
+        <li class="tab col s6"><a id = "new_post_tab"  class=" black-text waves-effect waves-green active" href="#post_news">Unseen Reports</a></li>
+        <li class="tab col s6"><a id = "prev_post_tab"  class=" black-text waves-effect waves-green" href="#news_list">Report History</a></li>
+      </ul>
+    </div>
+    <div id="post_news" class="  container row">
+    	      <div  class="row " th:each = "report : ${user_unseen_reports}">
+ 			    <div id="prev-news-card" class="row">
+    <div class="col s12 l12">
+      <div  class="card  blue-grey lighten-4">
+        <div class="card-content black-text">
+          <div class="row">
+            <div class="col s12">
+          <span class="new badge light-green darken-2" data-badge-caption="" th:text="${report.createdAt}">{Date Created}</span>
+          <p class="card-title" th:utext="|<strong>Report ID: </strong> ${report.id}|">{Report ID}</p>
+          </div>
+          </div>
+              <div class="row">
+             <div class="col s12">
+                <div th:each = "ct : ${report.crimeType}" class="chip blue-grey white-text" th:text="${ct.name}">Tag</div>
+            </div>
+          </div>
+                    <div class="row">
+             <div class="col s12">
+ <h6 class="blue-grey-text">Location and Date of the incident</h6>
+</div>
+</div>
+          <div class="row">
+            <div class="col s12 l6 m6">
+              <h6 class="grey-text">Location</h6>
+              <h6 th:text="|${report.address}, ${report.city.name}|">around 5 kilo, Addis Ababa</h6>
+            </div>
+            <div class="col s12 l6 m6">
+              <h6 class="grey-text">Date</h6>
+              <h6 th:text="|${report.date}|">fri 11, 2019</h6>
+            </div>
+          </div>
+          <div class="row">
+             <div class="col s12">
+ <h6 class="blue-grey-text">Information about the incident</h6>
+</div>
+</div>
+           <div class="row">
+            <div class="col s12">
+              <h6 class="grey-text">Description</h6>
+          <p th:text="${report.description}">{I am a very simple card. I am good at containing small bits of information.
+                    I am convenient because I require little markup to use effectively.}</p>
+          </div>
+        </div>
+
+          <div class="row">
+            <div class="col s12 l6 m6">
+              <h6 class="grey-text">Number of People involved</h6>
+              <h5 style="padding-left: 25%" th:text="${report.peopleInvolved}">100</h5>
+            </div>
+
+            <div class="col s12 l6 m6">
+               <h6 class="grey-text">Was user affected?</h6>
+              <h5 style="padding-left: 15%" th:text="${report.isAffected}">Yes</h5>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="card-action right-align">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+ <div id="news_list" class=" container row ">
+          <div  class="row " th:each = "report : ${user_reports}">
+ 			    <div id="prev-news-card" class="row">
+    <div class="col s12 l12">
+      <div  class="card  blue-grey lighten-4">
+        <div class="card-content black-text">
+          <div class="row">
+            <div class="col s12">
+          <span class="new badge light-green darken-2" data-badge-caption="" th:text="${report.createdAt}">{Date Created}</span>
+          <p class="card-title" th:utext="|<strong>Report ID: </strong> ${report.id}|">{Report ID}</p>
+          </div>
+          </div>
+              <div class="row">
+             <div class="col s12">
+                <div th:each = "ct : ${report.crimeType}" class="chip blue-grey white-text" th:text="${ct.name}">Tag</div>
+            </div>
+          </div>
+                    <div class="row">
+             <div class="col s12">
+ <h6 class="blue-grey-text">Location and Date of the incident</h6>
+</div>
+</div>
+          <div class="row">
+            <div class="col s12 l6 m6">
+              <h6 class="grey-text">Location</h6>
+              <h6 th:text="|${report.address}, ${report.city.name}|">around 5 kilo, Addis Ababa</h6>
+            </div>
+            <div class="col s12 l6 m6">
+              <h6 class="grey-text">Date</h6>
+              <h6 th:text="|${report.date}|">fri 11, 2019</h6>
+            </div>
+          </div>
+          <div class="row">
+             <div class="col s12">
+ <h6 class="blue-grey-text">Information about the incident</h6>
+</div>
+</div>
+           <div class="row">
+            <div class="col s12">
+              <h6 class="grey-text">Description</h6>
+          <p th:text="${report.description}">{I am a very simple card. I am good at containing small bits of information.
+                    I am convenient because I require little markup to use effectively.}</p>
+          </div>
+        </div>
+
+          <div class="row">
+            <div class="col s12 l6 m6">
+              <h6 class="grey-text">Number of People involved</h6>
+              <h5 style="padding-left: 25%" th:text="${report.peopleInvolved}">100</h5>
+            </div>
+
+            <div class="col s12 l6 m6">
+               <h6 class="grey-text">Was user affected?</h6>
+              <h5 style="padding-left: 15%" th:text="${report.isAffected}">Yes</h5>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="card-action right-align">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+</div>
+        
+    </section>
+     </main>
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+<div th:replace="fragments/layout :: scriptFragment"></div>
+</body>
+</html>

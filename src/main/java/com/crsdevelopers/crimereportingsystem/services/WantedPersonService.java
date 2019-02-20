@@ -1,6 +1,8 @@
 package com.crsdevelopers.crimereportingsystem.services;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,18 @@ public class WantedPersonService {
 			return repository.findById(id).get();
 		}
 		return null;
+	}
+	
+	public List<WantedPerson> getRecent(){
+		ArrayList<Long> ids = new ArrayList<Long>();
+		Long count = repository.count();
+		for (int i = 0; i <3 ; i++) {
+			ids.add(count);
+			count -=1;
+		}
+		List<WantedPerson> recent = (List<WantedPerson>) repository.findAllById(ids); 
+		Collections.reverse(recent);
+		return recent;
 	}
 
 

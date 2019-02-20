@@ -1,9 +1,11 @@
 package com.crsdevelopers.crimereportingsystem.services;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -52,6 +54,23 @@ public class NewsService {
 
 	public Page<News> findAll(Pageable pageable) {
 		return repository.findAll(pageable);
+	}
+	public List<News> getRecent(){
+		ArrayList<Long> ids = new ArrayList<Long>();
+		Long count = repository.count();
+		for (int i = 0; i <3 ; i++) {
+			ids.add(count);
+			count -=1;
+		}
+		List<News> recent = (List<News>) repository.findAllById(ids); 
+		Collections.reverse(recent);
+		return recent;
+		
+	}
+	
+	public Iterable<News> getWithPageAndSize(int page, int size){
+		PageRequest pageRequest = PageRequest.of(page,size,Sort.by("createdAt").descending());
+		return this.findAll(pageRequest).getContent();
 	}
 
 }

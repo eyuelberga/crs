@@ -1,7 +1,6 @@
 package com.crsdevelopers.crimereportingsystem.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,13 +24,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	  protected void configure(AuthenticationManagerBuilder auth)
 	      throws Exception {
 		  auth.userDetailsService(userService)
-	          .passwordEncoder(bCryptPasswordEncoder);
+	          .passwordEncoder(bCryptPasswordEncoder)
+	          .and()
+	          .inMemoryAuthentication()
+	          .withUser("super")
+	          .password("super")
+	          .authorities("SUPER_ADMIN");
 	  } 
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-        	.antMatchers("/user").hasAuthority("USER")
-            .antMatchers("/user/*").hasAuthority("USER")
+            .antMatchers("/user","/user/*").hasAuthority("USER")
             .anyRequest()
             .permitAll()
 	        .and()

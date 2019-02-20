@@ -1,9 +1,12 @@
 package com.crsdevelopers.crimereportingsystem;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+
+import com.crsdevelopers.crimereportingsystem.services.UserService;
 
 @SpringBootApplication
 public class CrimereportingsystemApplication {

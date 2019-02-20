@@ -18,25 +18,31 @@ xmlns:th="http://www.thymeleaf.org">
         <div class="col s12 m6 l4">
             <h1 class=" green-text  fa fa-5x fa-file-o"></h1>
             <form  method="get" th:action="@{/user/report}">
-            <button type="submit" class="light-green darken-2 btn waves-effect ">File a Crime Report</button></form>
+            <button type="submit" class="light-green darken-3 btn waves-effect ">File a Crime Report</button></form>
            
         </div>
         <div class="col s12 m6 l4">
             <h1 class="  green-text  fa fa-5x fa-user"> </h1><h1 class="  green-text  fa fa-5x fa-file-o"></h1>
              <form  method="get" th:action="@{/user/missingPerson}">
-            <button type="submit" class=" light-green  darken-2 btn waves-effect ">Missing Person Report</button></form>
+            <button type="submit" class=" light-green  darken-3 btn waves-effect ">Missing Person Report</button></form>
         </div>
         <div class="col s12 m6 l4">
              <h1 class="  green-text  fa fa-5x fa-newspaper-o"></h1>
             <form  method="get" th:action="@{/news}">
-            <button type="submit" class="light-green darken-2 btn waves-effect ">News Section</button></form>
+            <button type="submit" class="light-green darken-3 btn waves-effect ">News Section</button></form>
         </div>
         </div>
         <div class="row">
+          <div class="col s12 m6 l4">
+             <h1 class="  green-text  fa fa-5x fa-time"></h1>
+            <form  method="get" th:action="@{/user/report/status}">
+            <button type="submit" class="light-green darken-3 btn waves-effect ">Report Status</button>
+          </form>
+        </div>
         <div class="col s12 m6 l4">
              <h1 class="  green-text  fa fa-5x fa-sign-out"></h1>
             <form  method="get" th:action="@{/logout}">
-            <button type="submit" class="light-green darken-2 btn waves-effect ">Logout</button>
+            <button type="submit" class="light-green darken-3 btn waves-effect ">Logout</button>
           </form>
         </div>
 

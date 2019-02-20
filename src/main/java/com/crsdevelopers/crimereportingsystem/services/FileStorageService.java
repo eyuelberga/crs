@@ -1,8 +1,6 @@
 package com.crsdevelopers.crimereportingsystem.services;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -10,13 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import javax.imageio.ImageIO;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,24 +43,6 @@ public class FileStorageService {
 			throw new FileStorageException(ApiConstants.INVALID_FILE_FORMAT);
 		}
 		
-//		File f = new File(AppConstants.TEMP_DIR + file.getOriginalFilename());
-//		
-//		f.createNewFile();
-//		FileOutputStream fout = new FileOutputStream(f);
-//		fout.write(file.getBytes());
-//		fout.close();
-//		BufferedImage image = ImageIO.read(f);
-//		int height = image.getHeight();
-//		int width = image.getWidth();
-//		// check the dimension of the image
-//		if(width >300 || height >300) {
-//			if(f.exists())
-//				f.delete();
-//			throw new FileStorageException(AppConstants.INVALID_FILE_DIMENSION);
-//		}
-//		if(f.exists())
-//			f.delete();
-//		
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		//check if the filename is valid
 		try {

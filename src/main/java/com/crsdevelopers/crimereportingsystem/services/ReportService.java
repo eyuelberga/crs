@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crsdevelopers.crimereportingsystem.domains.Report;
+import com.crsdevelopers.crimereportingsystem.domains.User;
 import com.crsdevelopers.crimereportingsystem.repositories.ReportRepository;
 
 @Service
@@ -38,6 +39,11 @@ public class ReportService {
 	
 	public List<Report> getBySeen(boolean seen) {
 		 List<Report> all = (List<Report>) repository.findBySeen(seen);
+		 Collections.reverse(all);
+		return all;
+	}
+	public List<Report> getBySeenAndUsername(boolean seen, User user) {
+		 List<Report> all = (List<Report>) repository.findBySeenAndUser(seen, user);
 		 Collections.reverse(all);
 		return all;
 	}
