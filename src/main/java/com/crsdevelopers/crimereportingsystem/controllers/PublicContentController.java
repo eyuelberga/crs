@@ -18,6 +18,7 @@ import com.crsdevelopers.crimereportingsystem.restclient.MissingPersonRestClient
 import com.crsdevelopers.crimereportingsystem.restclient.NewsRestClient;
 import com.crsdevelopers.crimereportingsystem.restclient.StolenVehicleRestClient;
 import com.crsdevelopers.crimereportingsystem.restclient.WantedPersonRestClient;
+import com.crsdevelopers.crimereportingsystem.services.CommentService;
 import com.crsdevelopers.crimereportingsystem.services.MissingPersonService;
 import com.crsdevelopers.crimereportingsystem.services.NewsService;
 import com.crsdevelopers.crimereportingsystem.services.StolenVehicleService;
@@ -30,14 +31,16 @@ public class PublicContentController {
 	private MissingPersonService missingPersonService;
 	private WantedPersonService wantedPersonService;
 	private StolenVehicleService stolenVehicleService;
+	private CommentService commentService;
 	
 	
 	@Autowired
-	public PublicContentController(StolenVehicleService stolenVehicleService, NewsService newsService, MissingPersonService missingPersonService, WantedPersonService wantedPersonService){
+	public PublicContentController(CommentService commentService,StolenVehicleService stolenVehicleService, NewsService newsService, MissingPersonService missingPersonService, WantedPersonService wantedPersonService){
 		this.newsService = newsService;
 		this.missingPersonService = missingPersonService;
 		this.wantedPersonService = wantedPersonService;
 		this.stolenVehicleService = stolenVehicleService;
+		this.commentService = commentService;
 	}
 
 	
@@ -106,6 +109,7 @@ public class PublicContentController {
 	@GetMapping("/news/{id}")
 	public String shownewsID(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("news", newsService.getById(id));
+		model.addAttribute("comments", commentService.getByNews(newsService.getById(id)));
 		return "public_news_info";
 	}
 	

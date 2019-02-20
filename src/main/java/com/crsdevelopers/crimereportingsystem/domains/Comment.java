@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import javax.validation.constraints.NotBlank;
 
 import lombok.AccessLevel;
 import lombok.Data;
@@ -19,17 +19,16 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
-@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
-@RequiredArgsConstructor
 @Table(name="comment",schema="crs")
 public class Comment {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private final Long id;
-	private final String content;
+	private  Long id;
+	@NotBlank(message="Content should not be blank")
+	private String content;
 	private Date createdAt = new Date();
-	@OneToOne
+	@ManyToOne
 	private News news;
 	@ManyToOne
 	private  User user;
