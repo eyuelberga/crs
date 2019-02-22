@@ -39,6 +39,28 @@ public class UserService implements UserDetailsService {
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         repository.save(user);
 	}
+	
+	public void saveSuper(User user) {
+		if(repository.findByUsername("super") == null) {
+			user.setUsername("super");
+			user.setFullname("super");
+			user.setPhoneNumber("super");
+			user.setStreetAddress("super");
+			user.setPassword(bCryptPasswordEncoder.encode("super"));
+	        user.setEnabled(1);
+	        Role userRole = roleRepository.findByRole("SUPER");
+	        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+	        repository.save(user);
+		}
+		
+	}
+	public void saveAdmin (User user) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setEnabled(1);
+        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        repository.save(user);
+	}
 
 
 	public User update(User user) {

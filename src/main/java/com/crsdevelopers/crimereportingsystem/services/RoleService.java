@@ -34,6 +34,10 @@ public class RoleService {
 	public Role getById(Long id) {
 		return repository.findById(id).get();
 	}
+	
+	public Role getByRole(String role) {
+		return repository.findByRole(role);
+	}
 
 
 	public List<Role> getAll() {

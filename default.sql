@@ -14,4 +14,4 @@ INSERT INTO crs.city (name) VALUES ('Addis Ababa'),
 										   ('Dire Dawa'),
 										   ('Mekele')
 										  ;
-INSERT INTO crs.role (role) VALUES ('USER'), ('ADMIN');   
+INSERT INTO crs.role (role) VALUES ('USER'), ('ADMIN'), ('SUPER');   

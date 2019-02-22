@@ -24,16 +24,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	  protected void configure(AuthenticationManagerBuilder auth)
 	      throws Exception {
 		  auth.userDetailsService(userService)
-	          .passwordEncoder(bCryptPasswordEncoder)
-	          .and()
-	          .inMemoryAuthentication()
-	          .withUser("super")
-	          .password("super")
-	          .authorities("SUPER_ADMIN");
+	          .passwordEncoder(bCryptPasswordEncoder);
 	  } 
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+        	.antMatchers("/super/signup").hasAuthority("SUPER")
+        	.antMatchers("/admin","/admin/**","/user/comment/**").hasAuthority("ADMIN")
             .antMatchers("/user","/user/**").hasAuthority("USER")
             .anyRequest()
             .permitAll()
@@ -41,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		     	.formLogin()
 		     			.loginPage("/login")
 		     			.failureUrl("/login?error=true")
-		     			.defaultSuccessUrl("/user")
+		     			.defaultSuccessUrl("/default")
 		    .and()
 		     	.logout()
 		     			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

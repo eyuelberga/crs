@@ -1,15 +1,10 @@
 package com.crsdevelopers.crimereportingsystem.controllers;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,24 +16,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.crsdevelopers.crimereportingsystem.domains.City;
 import com.crsdevelopers.crimereportingsystem.domains.User;
 import com.crsdevelopers.crimereportingsystem.services.CityService;
-import com.crsdevelopers.crimereportingsystem.services.RoleService;
 import com.crsdevelopers.crimereportingsystem.services.UserService;
-import com.crsdevelopers.crimereportingsystem.domains.Role;
 
 @Controller
-public class LoginController {
+@RequestMapping("super")
+public class SuperController {
 	
 	private UserService userService;
 	private CityService cityService;
-	private RoleService roleService;
 	@Autowired
-	public LoginController(UserService userService, CityService cityService,  RoleService roleService) {
+	public SuperController(UserService userService, CityService cityService) {
 		this.userService = userService;
 		this.cityService = cityService;
-		this.roleService = roleService;
-		
 	}
-	
 	@ModelAttribute(name="user")
 	public User user() {
 		return new User();
@@ -48,15 +38,20 @@ public class LoginController {
 		List<City> cities = cityService.getAll(); 
 		return cities; 
 	}
-
-	@GetMapping("/login")
-	public String showLoginForm() {
-		return "login";
+	@GetMapping
+	public String superHome() {
+		return "super_home";
+	}
+	@PostMapping
+	public String createDefaultSuper() {
+		User user  = new User();
+		userService.saveSuper(user);
+		return "super_home";
 	}
 	
 	@GetMapping("/signup")
     public String showSignupForm(){
-        return "signup";
+        return "admin_signup";
     }
 	   @PostMapping("/signup")
 	    public String createNewUser(@Valid User user, BindingResult bindingResult, RedirectAttributes atts) {
@@ -67,35 +62,14 @@ public class LoginController {
 	                            "There is already a user registered with the username provided");
 	        }
 	        if (bindingResult.hasErrors()) {
-	            return "signup";
+	            return "admin_signup";
 	        } else {
 	        	
-	            userService.save(user);
+	            userService.saveAdmin(user);
 	            atts.addFlashAttribute("successMessage", "User has been registered successfully");
 	            
-	            return "redirect:/login";
+	            return "redirect:/super/signup";
 	        }
 	    }
-	    
-	    @GetMapping("/access-denied")
-	    public String accessDenied(){
-	        return "access_denied";
-	    }
-	    @RequestMapping("/default")
-	    public String redirectAfterLogin(@AuthenticationPrincipal User user) {
-	    	 Set<Role> roles = user.getRoles();
-	    	
-	    	if(roles.contains(roleService.getByRole("SUPER"))) {
-	    		return "redirect:/super/signup";
-	    	}
-	    	else if(roles.contains(roleService.getByRole("ADMIN"))) {
-	    		return "redirect:/admin";
-	    	}
-	    	else if(roles.contains(roleService.getByRole("USER"))) {
-	    		return "redirect:/user";
-	    	}
-	    	else {
-	    		return "redirect:/";
-	    	}
-	    }
+
 }

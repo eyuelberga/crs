@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: headFragment (pageTitle = 'Super')">
+</head>
+<body class="blue-grey darken-4">
+
+<main class="blue-grey darken-4 container"><br><br>
+      <div class="row center-align">
+        <form method="POST" th:action="@{/super}">
+          <button class="btn green darken-2 btn-large" type="submit">Create Default Super</button>
+        </form>
+      </div>
+     </main>
+
+    <footer th:replace="fragments/layout :: footerFragment">
+    </footer>
+
+<div th:replace="fragments/layout :: scriptFragment"></div>
+
+</body>
+</html>
