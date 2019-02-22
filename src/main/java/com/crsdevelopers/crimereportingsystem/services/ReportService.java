@@ -38,12 +38,12 @@ public class ReportService {
 	}
 	
 	public List<Report> getBySeen(boolean seen) {
-		 List<Report> all = (List<Report>) repository.findBySeen(seen);
+		 List<Report> all = repository.findBySeen(seen);
 		 Collections.reverse(all);
 		return all;
 	}
 	public List<Report> getBySeenAndUsername(boolean seen, User user) {
-		 List<Report> all = (List<Report>) repository.findBySeenAndUser(seen, user);
+		 List<Report> all = repository.findBySeenAndUser(seen, user);
 		 Collections.reverse(all);
 		return all;
 	}

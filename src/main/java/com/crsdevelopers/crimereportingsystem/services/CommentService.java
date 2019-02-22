@@ -38,7 +38,7 @@ public class CommentService {
 	}
 	
 	public List<Comment> getByNews(News news) {
-		 List<Comment> all = (List<Comment>) repository.findByNews(news);
+		 List<Comment> all = repository.findByNews(news);
 		 Collections.reverse(all);
 		return all;
 	}
