@@ -17,7 +17,7 @@ xmlns:th="http://www.thymeleaf.org">
       </ul>
     </div>
     <div id="post_wp" class="  container row">
-      <form method="POST" class="col s12" th:action="@{/admin/wantedPerson}" th:object="${wp}"  name="wp_form" enctype="multipart/form-data" >
+      <form method="POST" class="col s12" th:action="@{/admin/wantedPerson}" th:object="${wantedPerson}"  name="wp_form" enctype="multipart/form-data" >
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <h4>Add a Wanted Person Post</h4>
         	 <div class="row">

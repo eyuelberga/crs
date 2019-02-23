@@ -9,7 +9,7 @@ xmlns:th="http://www.thymeleaf.org">
 </header>
 <main class="amber lighten-3">
     <div id="post_sv" class="  container row">
-      <form method="POST" class="col s12" action="#" th:action="@{/admin/stolenVehicle/update/{id} (id=${sv.id}) }" th:object="${sv}"   >
+      <form method="POST" class="col s12" action="#" th:action="@{/admin/stolenVehicle/update/{id} (id=${stolenVehicle.id}) }" th:object="${stolenVehicle}"   >
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <h4>Edit sv Post</h4>
         	<div class="row" th:if="${#fields.hasErrors()}">
@@ -18,14 +18,14 @@ xmlns:th="http://www.thymeleaf.org">
 			
 		      <div class="row">
         <div class="input-field col s12">
-          <input id="title" type="text" th:value="${sv.id}" th:field="*{id}" class="validate" disabled>
+          <input id="title" type="text" th:value="${stolenVehicle.id}" th:field="*{id}" class="validate" disabled>
           <label for="title">ID</label>
         </div>
       </div>
       
       <div class="row">
         <div class="input-field col l6 s12">
-          <input id="name" type="text" th:value="${sv.name}" th:field="*{name}" class="validate">
+          <input id="name" type="text" th:value="${stolenVehicle.name}" th:field="*{name}" class="validate">
           <label for="name">Name</label>
           <span
           class="helper-text red-text" th:if="${#fields.hasErrors('name')}"
@@ -33,7 +33,7 @@ xmlns:th="http://www.thymeleaf.org">
       </span>
         </div>
          <div class="input-field col l6 s12">
-          <input id="licensePlate" type="text" th:value="${sv.licensePlate}" th:field="*{licensePlate}" class="validate">
+          <input id="licensePlate" type="text" th:value="${stolenVehicle.licensePlate}" th:field="*{licensePlate}" class="validate">
           <label for="licensePlate">License Plate</label>
           <span
           class="helper-text red-text" th:if="${#fields.hasErrors('licensePlate')}"
@@ -44,7 +44,7 @@ xmlns:th="http://www.thymeleaf.org">
 
        <div class="row">
         <div class="input-field col l6 s12">
-          <input id="color" type="text" th:value="${sv.color}" th:field="*{color}" class="validate">
+          <input id="color" type="text" th:value="${stolenVehicle.color}" th:field="*{color}" class="validate">
           <label for="color">Color</label>
           <span
           class="helper-text red-text" th:if="${#fields.hasErrors('color')}"
@@ -52,7 +52,7 @@ xmlns:th="http://www.thymeleaf.org">
       </span>
         </div>
          <div class="input-field col l6 s12">
-          <input id="model" type="text" th:value="${sv.model}" th:field="*{model}" class="validate">
+          <input id="model" type="text" th:value="${stolenVehicle.model}" th:field="*{model}" class="validate">
           <label for="model">Model</label>
           <span
           class="helper-text red-text" th:if="${#fields.hasErrors('model')}"

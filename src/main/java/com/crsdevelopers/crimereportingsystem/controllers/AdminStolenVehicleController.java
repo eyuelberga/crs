@@ -40,10 +40,10 @@ public class AdminStolenVehicleController {
 		
 	}
 	
-	@ModelAttribute(name="sv")
-	public StolenVehicle sv(Model model) {
-		return new StolenVehicle();
-	}
+//	@ModelAttribute(name="sv")
+//	public StolenVehicle sv(Model model) {
+//		return new StolenVehicle();
+//	}
 	
 	@ModelAttribute(name="all_sv")
 	public List<StolenVehicle> getAll() {
@@ -52,8 +52,8 @@ public class AdminStolenVehicleController {
 	}
 	
 	@GetMapping
-	public String showSvForm() {
-		
+	public String showSvForm(Model model) {
+		model.addAttribute("stolenVehicle", new StolenVehicle());
 		return "admin_sv";
 	}
 	
@@ -67,11 +67,11 @@ public class AdminStolenVehicleController {
 	}
 	
 	@PostMapping
-	public String processSvPost(@ModelAttribute @Valid StolenVehicle sv, Errors errors){
+	public String processSvPost(@ModelAttribute @Valid StolenVehicle stolenVehicle, Errors errors, Model model){
 		if (errors.hasErrors()) {
 			return "admin_sv";
 		}
-		StolenVehicle savedSv = svService.save(sv);
+		StolenVehicle savedSv = svService.save(stolenVehicle);
 		log.info("Service object after persisting: " + savedSv);
 		
 		return "redirect:/admin/stolenVehicle/#sv_list";
@@ -81,17 +81,17 @@ public class AdminStolenVehicleController {
 	@GetMapping("/edit/{id}")
 	public String ShowEditForm(@PathVariable("id") Long id, Model model) {
 		StolenVehicle svEdit = svService.getById(id);
-		model.addAttribute("sv",svEdit);
+		model.addAttribute("stolenVehicle",svEdit);
 		return "admin_edit_sv";
 		
 	}
 	@PostMapping("/update/{id}")
-	public String processUpdate(@PathVariable("id") Long id, @Valid StolenVehicle svEdit, Errors errors) {
+	public String processUpdate(@PathVariable("id") Long id, @Valid StolenVehicle stolenVehicle, Errors errors) {
 		if (errors.hasErrors()) {
-			svEdit.setId(id);
+			stolenVehicle.setId(id);
 			return "admin_edit_sv";
 		}
-		svService.update(svEdit);
+		svService.update(stolenVehicle);
 		
 		return "redirect:/admin/stolenVehicle/#sv_list";
 		

@@ -34,7 +34,7 @@ public class AdminWantedPersonController {
 		this.fileStorageService = fileStorageService;
 		}
 	
-	@ModelAttribute(name="wp")
+	@ModelAttribute(name="wantedPerson")
 	public WantedPerson wp(Model model) {
 		return new WantedPerson();
 	}
@@ -59,14 +59,14 @@ public class AdminWantedPersonController {
 		}
 	
 	@PostMapping
-	public String processPost( @RequestParam("file") MultipartFile f, @Valid WantedPerson wp, Errors errors) throws IOException{
+	public String processPost( @RequestParam("file") MultipartFile f, @Valid WantedPerson wantedPerson, Errors errors) throws IOException{
 		if (errors.hasErrors()) {
 			return "admin_wp";
 		}
 		String fileName = fileStorageService.storeFile(f);
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/wantedPerson/downloadFile/").path(fileName).toUriString();
-		wp.setPicturePath(fileDownloadUri);
-		WantedPerson savedWp = wpService.save(wp);
+		wantedPerson.setPicturePath(fileDownloadUri);
+		WantedPerson savedWp = wpService.save(wantedPerson);
 		log.info("News object after persisting: " + savedWp);
 		
 		return "redirect:/admin/wantedPerson/#wp_list";	
@@ -74,33 +74,33 @@ public class AdminWantedPersonController {
 	
 	@GetMapping("/edit/{id}")
 	public String ShowEditForm(@PathVariable("id") Long id, Model model) {
-		WantedPerson wpEdit = wpService.getById(id);
-		model.addAttribute("wp",wpEdit);
+		WantedPerson wantedPerson = wpService.getById(id);
+		model.addAttribute("wantedPerson",wantedPerson);
 		return "admin_edit_wp";	
 	}
 	
 	@PostMapping("/edit/{id}")
-	public String processUpdate(@PathVariable("id") Long id, @RequestParam("file") MultipartFile f,@Valid WantedPerson wpEdit, Errors errors){
+	public String processUpdate(@PathVariable("id") Long id, @RequestParam("file") MultipartFile f,@Valid WantedPerson wantedPerson, Errors errors){
 		if (errors.hasErrors()) {
-			wpEdit.setId(id);
+			wantedPerson.setId(id);
 			return "admin_edit_wp";
 		}
 		String fileName;
 		try {
 			fileName = fileStorageService.storeFile(f);
 			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/wantedPerson/downloadFile/").path(fileName).toUriString();
-			wpEdit.setPicturePath(fileDownloadUri);
+			wantedPerson.setPicturePath(fileDownloadUri);
 		}
 		catch(FileStorageException e){
-			wpEdit.setPicturePath(wpService.getById(id).getPicturePath());
-			wpService.update(wpEdit);
+			wantedPerson.setPicturePath(wpService.getById(id).getPicturePath());
+			wpService.update(wantedPerson);
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		wpService.update(wpEdit);
+		wpService.update(wantedPerson);
 		return "redirect:/admin/wantedPerson/#wp_list";	
 	}
 }

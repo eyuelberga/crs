@@ -17,7 +17,7 @@ xmlns:th="http://www.thymeleaf.org">
       </ul>
     </div>
     <div id="post_sv" class="  container row">
-      <form method="POST" class="col s12" th:action="@{/admin/stolenVehicle}" th:object="${sv}"  name="sv_form" >
+      <form method="POST" class="col s12" th:action="@{/admin/stolenVehicle}" th:object="${stolenVehicle}"  name="sv_form" >
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <h4>Add a Stolen Vehicle Post</h4>
         	 <div class="row" th:if="${#fields.hasErrors()}">
