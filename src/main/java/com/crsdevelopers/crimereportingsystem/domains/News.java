@@ -43,7 +43,9 @@ public class News {
 	@PrePersist
 	void createdAt() {
 		this.createdAt = new Date();
-	}	
+	}
+
+
 
 
 }

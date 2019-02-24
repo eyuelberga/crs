@@ -18,21 +18,9 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CrimereportingsystemApplicationTests {
-	@Autowired
-	MockMvc mockMvc;
 	@Test
 	public void contextLoads() {
 	}
-	
-	@Test
-	public void testPublicLandingPage() throws Exception {
-	mockMvc.perform(get("/public"))
-	.andExpect(status().isOk())
-	.andExpect(view().name("public_recent"))
-	.andExpect(content().string(
-			containsString("Recent")));
-	}
-	
 
 
 }
