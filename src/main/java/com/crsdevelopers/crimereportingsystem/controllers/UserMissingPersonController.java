@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.crsdevelopers.crimereportingsystem.domains.User;
+import com.crsdevelopers.crimereportingsystem.exception.FileStorageException;
 import com.crsdevelopers.crimereportingsystem.domains.MissingPerson;
 import com.crsdevelopers.crimereportingsystem.services.FileStorageService;
 import com.crsdevelopers.crimereportingsystem.services.MissingPersonService;
@@ -50,7 +51,15 @@ public class UserMissingPersonController {
         if (bindingResult.hasErrors()) {
             return "user_missingPerson";
         }
-        String fileName = fileStorageService.storeFile(f);
+        String fileName;
+        try {
+        	 fileName = fileStorageService.storeFile(f);
+        }
+        
+        catch (FileStorageException e) {
+        	return "user_missingPerson";
+        }
+        
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/missingPerson/downloadFile/").path(fileName).toUriString();
 		missingPerson.setPicturePath(fileDownloadUri);
 		

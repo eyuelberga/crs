@@ -63,7 +63,15 @@ public class AdminWantedPersonController {
 		if (errors.hasErrors()) {
 			return "admin_wp";
 		}
-		String fileName = fileStorageService.storeFile(f);
+		String fileName;
+        try {
+        	 fileName = fileStorageService.storeFile(f);
+        }
+        
+        catch (FileStorageException e) {
+        	return "admin_wp";
+        }
+		
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/wantedPerson/downloadFile/").path(fileName).toUriString();
 		wantedPerson.setPicturePath(fileDownloadUri);
 		WantedPerson savedWp = wpService.save(wantedPerson);
