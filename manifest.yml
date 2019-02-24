@@ -1,0 +1,7 @@
+applications:
+	 name: crimereportingsystem
+	  buildpack: java_buildpack
+	  path: target/crimereportingsystem-0.0.1-SNAPSHOT.jar
+	  services:
+		- crs
+		
