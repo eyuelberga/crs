@@ -1,7 +1,7 @@
+---
 applications:
-	 name: crimereportingsystem
-	  buildpack: java_buildpack
-	  path: target/crimereportingsystem-0.0.1-SNAPSHOT.jar
-	  services:
-		- crs
-		
+- name: crimereportingsystem1
+  buildpack: java_buildpack
+  path: ./target/crimereportingsystem-0.0.1-SNAPSHOT.jar
+  services:
+    - crs-mysql
