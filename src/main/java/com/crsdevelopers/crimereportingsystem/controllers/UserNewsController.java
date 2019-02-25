@@ -48,10 +48,13 @@ public class UserNewsController {
 			model.addAttribute("comments", commentService.getByNews(newsService.getById(id)));
 			return "user_comment";
 		}
-		
 		comment.setNews(newsService.getById(id));
 		comment.setUser(user);
-		commentService.save(comment);
+		Comment newComment = new Comment();
+		newComment.setNews(newsService.getById(id));
+		newComment.setUser(user);
+		newComment.setContent(comment.getContent());
+		commentService.save(newComment);
 		return "redirect:/public/news/"+id;
 		
 	}
